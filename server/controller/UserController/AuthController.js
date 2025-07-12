@@ -10,6 +10,12 @@ dotenv.config()
 const validateTill = 3 * 24 * 60 * 60 * 1000
 
 
+//user registration end point
+//step 1 : check there is no validation errors present
+//step 2 : check email id is already registered or not.
+//step 3 : generate the hash password and store the user details in database.
+//step 4 : create a jwt toke and send as cookie into res with expiry.
+//step 5 : send user details without password as response payload.
 export const register = async (req, res) => {
     const error = await validationResult(req)
 
@@ -31,7 +37,7 @@ export const register = async (req, res) => {
         })
 
 
-        res.cookie("jwt", createToken(user._id, user.email, secrete), {
+        res.cookie("jwt", createToken(user._id, user.email), {
             httpOnly: true,
             maxAge: validateTill,
             secure: true,
@@ -52,7 +58,11 @@ export const register = async (req, res) => {
 
 }
 
-
+//SignIn end point
+//step 1 : check for validation erros
+//step 2 : extract the password from request and user details from database.
+//step 3 : compare the the both password.
+//step 4 : if correct then send jwt token and user details in response else send appropriate payload to user
 export const signIn = async (req, res) => {
     const error = await validationResult(req);
 
@@ -67,7 +77,7 @@ export const signIn = async (req, res) => {
 
         const isCorrectUser = await bcrypt.compare(password, user.password)
         if (isCorrectUser) {
-            res.cookie("jwt", createToken(user._id, user.email, secrete), {
+            res.cookie("jwt", createToken(user._id, user.email), {
                 httpOnly: true,
                 maxAge: validateTill,
                 secure: true,
@@ -82,16 +92,20 @@ export const signIn = async (req, res) => {
                 }
             })
         } else {
-            return res.status(401).json({ message: "incorrect combination of username/password" })
+            return res.status(401).send("incorrect combination of username/password")
         }
 
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ message: "Internal server error, try again letter" })
+        return res.status(500).send("Internal server error, try again letter")
     }
 }
 
-
+//signUp end point
+//step 1 : get the token from req and check it is present in the blacklisted token list.
+//step 2 : decode the token and destructure the exp out of it
+//step 3 : add this token inside blacklisted token with expiry time as exp so it will get removed after expiration.
+//step 4 : clear the cookie from response send status code 200
 export const signUp = async (req, res) => {
     const token = req.cookies.jwt;
     if (!token)
