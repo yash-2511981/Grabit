@@ -94,9 +94,12 @@ export const signIn = async (req, res) => {
 
 export const signUp = async (req, res) => {
     const token = req.cookies.jwt;
-
     if (!token)
         return res.sendStatus(204)
+
+    const isTokenExpired = await BlackListTokenModel.findOne({ token })
+    if (isTokenExpired)
+        return res.status(401).json({ message: "something went wrong, try again later..." })
 
     const { exp } = jwt.decode(token)
     const expiry = new Date(exp * 1000);
