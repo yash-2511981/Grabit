@@ -37,7 +37,7 @@ export const register = async (req, res) => {
         })
 
 
-        res.cookie("jwt", createToken(user._id, user.email), {
+        res.cookie("jwt", createToken(user._id), {
             httpOnly: true,
             maxAge: validateTill,
             secure: true,
@@ -77,7 +77,7 @@ export const signIn = async (req, res) => {
 
         const isCorrectUser = await bcrypt.compare(password, user.password)
         if (isCorrectUser) {
-            res.cookie("jwt", createToken(user._id, user.email), {
+            res.cookie("jwt", createToken(user._id), {
                 httpOnly: true,
                 maxAge: validateTill,
                 secure: true,
@@ -107,25 +107,30 @@ export const signIn = async (req, res) => {
 //step 3 : add this token inside blacklisted token with expiry time as exp so it will get removed after expiration.
 //step 4 : clear the cookie from response send status code 200
 export const signUp = async (req, res) => {
-    const token = req.cookies.jwt;
-    if (!token)
-        return res.sendStatus(204)
+    try {
+        const token = req.cookies.jwt;
+        if (!token)
+            return res.sendStatus(204)
 
-    const isTokenExpired = await BlackListTokenModel.findOne({ token })
-    if (isTokenExpired)
-        return res.status(401).json({ message: "something went wrong, try again later..." })
+        const isTokenExpired = await BlackListTokenModel.findOne({ token })
+        if (isTokenExpired)
+            return res.status(401).json({ message: "something went wrong, try again later..." })
 
-    const { exp } = jwt.decode(token)
-    const expiry = new Date(exp * 1000);
+        const { exp } = jwt.decode(token)
+        const expiry = new Date(exp * 1000);
 
-    await BlackListTokenModel.create({ token, expiresAt: expiry })
+        await BlackListTokenModel.create({ token, expiresAt: expiry })
 
-    res.clearCookie("jwt", {
-        httpOnly: true,
-        sameSite: "None",
-        secure: true,
-    })
+        res.clearCookie("jwt", {
+            httpOnly: true,
+            sameSite: "None",
+            secure: true,
+        })
 
 
-    res.status(200).json({ message: "Logged Out Successfully" });
+        res.status(200).json({ message: "Logged Out Successfully" });
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("internal server error")
+    }
 }
