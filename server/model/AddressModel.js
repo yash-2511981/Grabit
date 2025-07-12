@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const addressSchema = new Schema({
-    user: { type: Schema.Types.ObjectId, ref: "user" },
+    user: { type: Schema.Types.ObjectId, required: true, ref: "user" },
     roomNo: { type: String, required: true },
     buildingName: { type: String, required: true },
     area: { type: String, required: true },
