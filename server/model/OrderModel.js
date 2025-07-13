@@ -36,6 +36,6 @@ const orderSchema = new Schema({
         default: Date.now,
     },
     createdFromSubscriptions: { type: Boolean, default: false }
-});
+}, { timestamps: true });
 
 export const OrderModel = mongoose.model("order", orderSchema);

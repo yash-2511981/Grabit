@@ -7,6 +7,6 @@ const addressSchema = new Schema({
     area: { type: String, required: true },
     landmark: { type: String },
     pincode: { type: String, required: true }
-});
+}, { timestamps: true });
 
 export const AddressModel = mongoose.model("address", addressSchema);

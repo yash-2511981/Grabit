@@ -8,6 +8,6 @@ const subscriptionSchema = new Schema({
   price: { type: Number, required: true },
   save: { type: Number, required: true }, // discount saved ₹
   mealTime: { type: Date, required: true }
-});
+}, { timestamps: true });
 
 export const SubscriptionModel = mongoose.model("subscription", subscriptionSchema);

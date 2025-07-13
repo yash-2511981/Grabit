@@ -4,10 +4,9 @@ const productSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   price: { type: Number, required: true },
-  category: { type: Schema.Types.ObjectId, ref: "category", required: true },
+  category: { type: String, enum: ["veg", "non-veg", "both"], default: "Both" },
   restaurant: { type: Schema.Types.ObjectId, ref: "restaurant", required: true },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
-});
+  imageUrl: { type: String, required: true },
+}, { timestamps: true });
 
 export const ProductModel = mongoose.model("product", productSchema);

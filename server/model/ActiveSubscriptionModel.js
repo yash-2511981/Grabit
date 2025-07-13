@@ -6,4 +6,4 @@ const activeSubscriptionSchema = new Schema({
     status: { type: String, enum: ["active", "expired"], default: "active" },
     mealCount: { type: Number },
     mealTime: { type: String, required: true, enum: ["breakfast", "lunch", "dinner"] }
-});
+}, { timestamps: true });

@@ -7,12 +7,10 @@ const userSchema = new Schema({
   mobile: { type: String, required: true },
   preference: { type: String, required: true },
   password: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
   cart: [{
     product: { type: Schema.Types.ObjectId, ref: "product" },
     quantity: { type: Number, default: 1 }
   }],
-});
+}, { timestamps: true });
 
 export const UserModel = mongoose.model("user", userSchema);
