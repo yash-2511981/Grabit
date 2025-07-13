@@ -5,7 +5,7 @@ dotenv.config()
 const secrete = process.env.JWT_SECRETE
 
 export const createToken = (userId) => {
-    return jwt.sign({ userId }, secrete, { expiresIn: "3d" })
+    return jwt.sign({ id: userId }, secrete, { expiresIn: "3d" })
 }
 
 //jwt token verifier to prevent the unauthorized access
@@ -23,7 +23,7 @@ export const jwtVerify = async (req, res, next) => {
     try {
         const decode = jwt.verify(token, secrete);
 
-        req.user = decode
+        req.data = decode
 
         next();
     } catch (error) {
@@ -40,3 +40,5 @@ export const setMealTime = (hours, minutes) => {
 
     return date
 }
+
+export const validateTill = 3 * 24 * 60 * 60 * 1000;
