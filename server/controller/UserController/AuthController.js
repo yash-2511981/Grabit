@@ -1,14 +1,9 @@
 import { validationResult } from "express-validator"
 import { UserModel } from "../../model/UserModel.js"
-import dotenv from 'dotenv'
 import bcrypt from 'bcrypt'
-import { createToken } from "../../lib/utils.js"
+import { createToken, validateTill } from "../../lib/utils.js"
 import jwt from "jsonwebtoken"
 import { BlackListTokenModel } from "../../model/BalckListTokenModel.js"
-
-dotenv.config()
-const validateTill = 3 * 24 * 60 * 60 * 1000
-
 
 //user registration end point
 //step 1 : check there is no validation errors present
@@ -53,7 +48,7 @@ export const register = async (req, res) => {
         })
     } catch (error) {
         console.log(error)
-        return res.status(500).send("Internal Server Error")
+        return res.status(500).json({ error: "Internal Server Error" })
     }
 
 }
@@ -97,7 +92,7 @@ export const signIn = async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        return res.status(500).send("Internal server error, try again letter")
+        return res.status(500).json({ error: "Internal server error, try again letter" })
     }
 }
 
@@ -106,7 +101,7 @@ export const signIn = async (req, res) => {
 //step 2 : decode the token and destructure the exp out of it
 //step 3 : add this token inside blacklisted token with expiry time as exp so it will get removed after expiration.
 //step 4 : clear the cookie from response send status code 200
-export const signUp = async (req, res) => {
+export const signOut = async (req, res) => {
     try {
         const token = req.cookies.jwt;
         if (!token)
@@ -114,7 +109,7 @@ export const signUp = async (req, res) => {
 
         const isTokenExpired = await BlackListTokenModel.findOne({ token })
         if (isTokenExpired)
-            return res.status(401).json({ message: "something went wrong, try again later..." })
+            return res.status(401).json({ error: "something went wrong, try again later..." })
 
         const { exp } = jwt.decode(token)
         const expiry = new Date(exp * 1000);
@@ -127,10 +122,9 @@ export const signUp = async (req, res) => {
             secure: true,
         })
 
-
         res.status(200).json({ message: "Logged Out Successfully" });
     } catch (error) {
         console.log(error)
-        res.status(500).send("internal server error")
+        res.status(500).json({ error: "internal server error" })
     }
 }
