@@ -1,14 +1,15 @@
-
-import { Button } from './components/ui/button'
+import Loading from "./components/ui/loading"
+import Auth from "./pages/Auth/Auth"
+import { useAppStore } from "./store/store"
 
 function App() {
 
+  const { loading } = useAppStore()
+
   return (
     <>
-      <div className='text-black text-5xl flex items-center justify-center min-h-screen'>
-        Tailwind configured
-        <Button className="bg-primary">Click</Button>
-      </div>
+      {loading && <Loading />}
+      <Auth />
     </>
   )
 }
