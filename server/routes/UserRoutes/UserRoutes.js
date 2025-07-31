@@ -9,8 +9,8 @@ const userRouter = Router();
 
 //authentication routes
 userRouter.post("/signIn", loginValidation, signIn)
-userRouter.post("/register", registerValidation, register)
-userRouter.post("/signUp", signOut)
+userRouter.post("/signUp", registerValidation, register)
+userRouter.post("/signOut", signOut)
 
 //other routes
 userRouter.get("/get-user-info", jwtVerify, getUserInfo)
