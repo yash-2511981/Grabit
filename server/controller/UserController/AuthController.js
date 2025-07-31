@@ -14,21 +14,24 @@ import { BlackListTokenModel } from "../../model/BalckListTokenModel.js"
 export const register = async (req, res) => {
     const error = await validationResult(req)
 
-    if (!error.isEmpty())
-        return res.status(400).json({ error: error.array() })
+    if (!error.isEmpty()) {
+        console.log(error.array())
+        return res.status(400).send(error.array()[0].msg)
+    }
+    console.log(req.body)
 
-    const { email, firstName, lastName, mobile, preference, password } = req.body
+    const { email, firstName, lastName, contact, preference, password } = req.body
 
-    const isUserPresent = await UserModel.findOne({ email: email })
+    const isUserPresent = await UserModel.findOne({ email })
     if (isUserPresent)
-        return res.status(400).json({ error: "email is already register try to sign in" })
+        return res.status(400).send("email is already register try to sign in")
 
     const salt = await bcrypt.genSalt(10);
     const newPass = await bcrypt.hash(password, salt)
 
     try {
         const user = await UserModel.create({
-            email, firstName, lastName, mobile, preference, password: newPass
+            email, firstName, lastName, contact, preference, password: newPass
         })
 
 
@@ -48,7 +51,7 @@ export const register = async (req, res) => {
         })
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ error: "Internal Server Error" })
+        return res.status(500).send("Internal Server Error")
     }
 
 }
@@ -69,6 +72,9 @@ export const signIn = async (req, res) => {
 
     try {
         const user = await UserModel.findOne({ email })
+
+        if (!user)
+            return res.status(404).send("Unauthorized")
 
         const isCorrectUser = await bcrypt.compare(password, user.password)
         if (isCorrectUser) {
@@ -92,7 +98,7 @@ export const signIn = async (req, res) => {
 
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ error: "Internal server error, try again letter" })
+        return res.status(500).sebd("Internal server error, try again letter")
     }
 }
 
