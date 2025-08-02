@@ -14,6 +14,7 @@ export const getUserInfo = async (req, res) => {
     try {
         const user = await UserModel.findById(id)
 
+
         if (!user)
             return res.status(404).send("user not found! try to login again or sign up")
 
@@ -66,6 +67,19 @@ export const addToCart = async (req, res) => {
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).send("Internal Server Error");
     }
 };
+
+
+export const getProducts = async (req, res) => {
+    const { vegMode } = req.body
+    const { id } = req.data;
+
+    try {
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+}

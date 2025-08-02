@@ -18,9 +18,8 @@ export const register = async (req, res) => {
         console.log(error.array())
         return res.status(400).send(error.array()[0].msg)
     }
-    console.log(req.body)
 
-    const { email, firstName, lastName, contact, preference, password } = req.body
+    const { email, firstName, lastName, contact, password } = req.body
 
     const isUserPresent = await UserModel.findOne({ email })
     if (isUserPresent)
@@ -31,7 +30,7 @@ export const register = async (req, res) => {
 
     try {
         const user = await UserModel.create({
-            email, firstName, lastName, contact, preference, password: newPass
+            email, firstName, lastName, contact, password: newPass
         })
 
 
@@ -115,7 +114,7 @@ export const signOut = async (req, res) => {
 
         const isTokenExpired = await BlackListTokenModel.findOne({ token })
         if (isTokenExpired)
-            return res.status(401).json({ error: "something went wrong, try again later..." })
+            return res.status(401).send("something went wrong, try again later...")
 
         const { exp } = jwt.decode(token)
         const expiry = new Date(exp * 1000);
@@ -128,7 +127,7 @@ export const signOut = async (req, res) => {
             secure: true,
         })
 
-        res.status(200).json({ message: "Logged Out Successfully" });
+        res.status(200).send("Logged Out Successfully");
     } catch (error) {
         console.log(error)
         res.status(500).json({ error: "internal server error" })
