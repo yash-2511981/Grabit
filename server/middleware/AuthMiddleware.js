@@ -3,6 +3,8 @@ import { body } from 'express-validator';
 export const registerValidation = [
   body('email').isEmail().withMessage("Enter a proper email address"),
   body('contact').notEmpty().withMessage("Mobile number is required"),
+  body('firstName').notEmpty().withMessage("FirstName is required"),
+  body('lastName').notEmpty().withMessage("LastName is required"),
   body('password')
     .isLength({ min: 6 })
     .withMessage("Password should be at least 6 characters long")

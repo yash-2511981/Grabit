@@ -15,10 +15,13 @@ export const createToken = (userId) => {
 export const jwtVerify = async (req, res, next) => {
     const token = req.cookies.jwt;
 
+    if (!token)
+        return res.status(401).send("Log in to your account to use it");
+
     const isTokenExpired = await BlackListTokenModel.findOne({ token })
 
     if (isTokenExpired)
-        return res.status(401).json({ message: "Unable to process your request try again later" })
+        return res.status(401).send("Unable to process your request try again later" )
 
     try {
         const decode = jwt.verify(token, secrete);
