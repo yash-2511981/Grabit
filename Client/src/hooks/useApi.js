@@ -6,7 +6,6 @@ const useApi = () => {
     const { setLoading } = useAppStore()
 
     const makeRequest = async (method, route, data, successMessage) => {
-        console.log(data)
 
         try {
             setLoading(true)
@@ -21,11 +20,10 @@ const useApi = () => {
                     response = await apiClient.post(route, data, config)
                     break
             }
-            
+
             if (response.status >= 200 && response.status < 300) {
-                console.log("i am here")
                 if (successMessage) {
-                    toast.success(successMessage)   
+                    toast.success(successMessage)
                 }
 
                 return {
@@ -39,7 +37,7 @@ const useApi = () => {
             if (error.response) {
                 errorMessage = error.response.data || `Server error:${error.response.status}`
             } else {
-                errorMessage = "Network error.Check your internet connection."
+                errorMessage = "Server Error.Try again after some time"
             }
 
             toast.error(errorMessage)
