@@ -3,13 +3,16 @@ import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import useApi from '@/hooks/useApi';
 import useDebounce from '@/hooks/useDebounce';
-import { SIGN_IN_ROUTE, SIGN_UP_ROUTE } from '@/lib/constants';
+import { SIGN_IN, SIGN_UP } from '@/lib/constants';
+import { cn } from '@/lib/utils';
 import { useAppStore } from '@/store/store';
 import { Label } from '@radix-ui/react-label';
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const Form = () => {
     const [newRegister, setNewRegister] = useState(false);
+    const [show, setShow] = useState(false);
     const [formValues, setformValues] = useState({
         email: "",
         password: ""
@@ -45,9 +48,9 @@ const Form = () => {
         e.preventDefault()
         let result;
         if (newRegister) {
-            result = await post(SIGN_UP_ROUTE, formValues, "Registration Complete")
+            result = await post(SIGN_UP, formValues, "Registration Complete")
         } else {
-            result = await post(SIGN_IN_ROUTE, formValues, "Logged In")
+            result = await post(SIGN_IN, formValues, "Logged In")
         }
 
         if (result?.success) {
@@ -56,7 +59,7 @@ const Form = () => {
     }
 
     return (
-        <Card className="w-full max-w-md">
+        <Card className={`w-full max-w-md ${cn(newRegister && "max-w-lg")} transition-all duration-50`}>
             <CardHeader>
                 <CardTitle>{newRegister ? "Register to get start with Grabit" : "Login to your account"}</CardTitle>
                 <CardDescription>{newRegister ? "Fill the details to complete registration process" : "Enter your email and password to login to your account"}</CardDescription>
@@ -73,6 +76,20 @@ const Form = () => {
                         </div>
                         {
                             newRegister && (
+                                <div className='grid-cols-2 grid gap-1'>
+                                    <div className='grid gap-2'>
+                                        <Label htmlFor='fname'>First Name</Label>
+                                        <Input id="fname" name="firstName" type="text" value={formValues.firstName} onChange={handleInputFieldChange} />
+                                    </div>
+                                    <div className='grid gap-2'>
+                                        <Label htmlFor='lname'>Last Name</Label>
+                                        <Input id="lname" name="lastName" type="text" value={formValues.lastName} onChange={handleInputFieldChange} />
+                                    </div>
+                                </div>
+                            )
+                        }
+                        {
+                            newRegister && (
                                 <div className='grid gap-2'>
                                     <Label htmlFor='contact'>Contact</Label>
                                     <Input id="contact" name="contact" type="text" value={formValues.contact} onChange={handleInputFieldChange} />
@@ -82,12 +99,12 @@ const Form = () => {
                         <div className='grid gap-2'>
                             <div className='flex items-center'>
                                 <Label htmlFor='password'>Password</Label>
-                                {!newRegister && <a href='#' className='ml-auto inline-block text-sm underline-offset-4 hover:underline'>
+                                {!newRegister ? <Link href='#' className='ml-auto inline-block text-sm underline-offset-4 hover:underline'>
                                     Forget your password?
-                                </a>}
+                                </Link> : <span className="ml-auto text-amber-600 font-semibold mr-2 cursor-pointer" onClick={() => setShow(!show)} type="">{show ? "Hide" : "Show"}</span>}
                             </div>
                             <div>
-                                <Input id="password" type="password" name="password" required value={formValues.password} onChange={handleInputFieldChange} />
+                                <Input id="password" type={show ? "text" : "password"} name="password" required value={formValues.password} onChange={handleInputFieldChange} />
                             </div>
                         </div>
                         {
