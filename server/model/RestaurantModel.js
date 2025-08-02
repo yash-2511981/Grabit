@@ -8,6 +8,7 @@ const restaurantSchema = new Schema({
   phone: { type: String, required: true },
   pincode: { type: Number, required: true },
   password: { type: String, required: true },
+  products: [{ type: Schema.Types.ObjectId, ref: "product" }],
   imageUrl: { type: String }
 }, { timestamps: true });
 

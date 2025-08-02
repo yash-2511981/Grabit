@@ -6,7 +6,6 @@ const userSchema = new Schema({
   lastName: { type: String },
   contact: { type: String, required: true },
   password: { type: String, required: true },
-  preference: { type: String },
   cart: [{
     product: { type: Schema.Types.ObjectId, ref: "product" },
     quantity: { type: Number, default: 1 }
