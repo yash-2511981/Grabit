@@ -72,12 +72,22 @@ export const addToCart = async (req, res) => {
 };
 
 
-export const getProducts = async (req, res) => {
-    const { vegMode } = req.body
-    const { id } = req.data;
+export const updatePersonalInfo = async (req, res) => {
+    const { id } = req.data
+    const { firstName, lastName, contact } = req.body
 
     try {
-        
+        const user = await UserModel.findByIdAndUpdate(id, { firstName, lastName, contact }, { new: true })
+
+        if (!user) {
+            return res.status(401).send("Unauthorized request")
+        }
+
+        res.status(200).json({
+            user: {
+                ...user
+            }
+        })
     } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error");
