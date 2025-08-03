@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
 
 function App() {
 
-  const { loading, setUserInfo, setLoading } = useAppStore()
+  const { loading, setUserInfo, setLoading, setAddress } = useAppStore()
   const { get } = useApi()
 
 
@@ -49,6 +49,7 @@ function App() {
       const result = await get(GET_USER_INFO)
       if (result.success) {
         setUserInfo(result.data.user)
+        setAddress(result.data.address)
       }
 
       setLoading(false)
