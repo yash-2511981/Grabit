@@ -76,3 +76,25 @@ export const addProductValidation = [
     .isURL().withMessage("Image URL must be a valid URL")
 ];
 
+
+export const addressValidations = [
+  body('roomNo')
+    .notEmpty().withMessage("Room No or House No is required"),
+
+  body('buildingName')
+    .notEmpty().withMessage("Building Name is required")
+    .isString().withMessage("Building Name must be a string"),
+
+  body('area')
+    .notEmpty().withMessage("Area is required")
+    .isString().withMessage("Area must be a string"),
+
+  body('pincode')
+    .notEmpty().withMessage("Pincode is required")
+    .isNumeric().withMessage("Pincode must contain only numbers")
+    .isLength({ min: 6, max: 6 }).withMessage("Pincode must be exactly 6 digits"),
+
+  body('landmark')
+    .optional({ checkFalsy: true })
+    .isString().withMessage("Landmark must be a string")
+];

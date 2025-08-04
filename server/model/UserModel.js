@@ -10,7 +10,6 @@ const userSchema = new Schema({
     product: { type: Schema.Types.ObjectId, ref: "product" },
     quantity: { type: Number, default: 1 }
   }],
-  profilesetup: { type: Boolean, default: false }
 }, { timestamps: true });
 
 export const UserModel = mongoose.model("user", userSchema);

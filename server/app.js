@@ -17,7 +17,7 @@ app.use("/uploads/dishes", express.static("uploads/dishes"));
 
 app.use(cors({
     origin: [process.env.ORIGIN],
-    methods: ["GET", "POST", "PATCH", "DELETE", "PUT"],
+    methods: ["GET", "POST", "PATCH", "DELETE"],
     credentials: true
 }));
 app.use(cookieParser())
