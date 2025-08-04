@@ -2,9 +2,33 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import useApi from '@/hooks/useApi'
+import { CHANGE_PASSWORD } from '@/lib/constants'
 import { X } from 'lucide-react'
+import { useState } from 'react'
 
 const ChangePasswordForm = ({ setShowModal }) => {
+
+    const { patch } = useApi()
+
+    const [formValue, setFormValue] = useState({
+        oldpassword: "",
+        newpassword: "",
+    });
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormValue(prevValue => ({ ...prevValue, [name]: value }))
+    }
+
+    const handleChangePassword = async () => {
+        try {
+            setShowModal(false)
+            await patch(CHANGE_PASSWORD, formValue, "Password Updated Successfully")
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <div className='inset-0 flex items-center justify-center backdrop-blur-xs absolute'>
             <div className='p-2 relative rounded-lg'>
@@ -18,14 +42,14 @@ const ChangePasswordForm = ({ setShowModal }) => {
                         <form>
                             <div className='flex flex-col gap-6'>
                                 <div className='grid gap-2'>
-                                    <Label htmlfor="oldpassword">Old Password</Label>
-                                    <Input id="oldpassword" name="oldpassword" />
+                                    <Label htmlFor="oldpassword">Old Password</Label>
+                                    <Input id="oldpassword" name="oldpassword" value={formValue.oldpassword} onChange={handleInputChange} type="password" />
                                 </div>
                                 <div className='grid gap-2'>
-                                    <Label htmlfor="newpassword">New Password</Label>
-                                    <Input id="newpassword" name="newpassword" />
+                                    <Label htmlFor="newpassword">New Password</Label>
+                                    <Input id="newpassword" name="newpassword" value={formValue.newpassword} onChange={handleInputChange} type="password" />
                                 </div>
-                                <Button>Change Password</Button>
+                                <Button onClick={handleChangePassword} type="button">Change Password</Button>
                             </div>
                         </form>
                     </CardContent>
