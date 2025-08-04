@@ -10,7 +10,7 @@ const userSlices = (set) => ({
     setVegMode: (vegMode) => set({ vegMode }),
     setUserInfo: (userInfo) => set({ userInfo }),
     setAddress: (address) => set((state) => ({
-        ...state.addresses, ...address
+        addresses: [...state.addresses, address]
     })),
     addCartItems: (item) =>
         set((state) => ({
