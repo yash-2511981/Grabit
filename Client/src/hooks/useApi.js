@@ -19,6 +19,12 @@ const useApi = () => {
                 case 'post':
                     response = await apiClient.post(route, data, config)
                     break
+                case 'patch':
+                    response = await apiClient.patch(route, data, config)
+                    break
+                case 'delete':
+                    response = await apiClient.delete(route, data, config)
+                    break
             }
 
             if (response.status >= 200 && response.status < 300) {
@@ -52,7 +58,9 @@ const useApi = () => {
 
     return {
         post: (route, data, successMessage) => makeRequest('post', route, data, successMessage),
-        get: (route, data, successMessage) => makeRequest('get', route, data, successMessage)
+        get: (route, data, successMessage) => makeRequest('get', route, data, successMessage),
+        patch: (route, data, successMessage) => makeRequest('patch', route, data, successMessage),
+        delete: (route, data, successMessage) => makeRequest('delete', route, data, successMessage),
     }
 }
 
