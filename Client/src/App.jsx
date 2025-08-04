@@ -49,7 +49,9 @@ function App() {
       const result = await get(GET_USER_INFO)
       if (result.success) {
         setUserInfo(result.data.user)
-        setAddress(result.data.address)
+        if (!result.data.address.isEmpty()) {
+          setAddress(result.data.address)
+        }
       }
 
       setLoading(false)
