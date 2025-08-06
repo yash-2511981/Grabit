@@ -110,6 +110,9 @@
   --sidebar-ring: oklch(0.554 0.135 66.442);
 }
 
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 
 @layer base {
   * {
