@@ -12,7 +12,7 @@ const CategoryFilterButton = ({ text, value }) => {
 
     return (
         <Button
-            className={`p-2 w-25 ${category === value ? "bg-primary hover:bg-primary" : "bg-secondary"} transition-all duration-200`}
+            className={`p-2 w-25 max-md:w-22 max-md:text-xs cursor-pointer ${category === value ? "bg-primary hover:bg-primary" : "bg-secondary"} transition-all duration-200`}
             onClick={handleClick}
             variant="ghost"
         >
