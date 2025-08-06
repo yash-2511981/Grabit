@@ -71,6 +71,42 @@ export const productArray = [
         restaurant: "rest7",
         imageUrl: "https://images.unsplash.com/photo-1600628422019-7c66f1d69b90",
     },
+    {
+        _id: "prod5",
+        name: "Masala Dosa",
+        description: "Crispy dosa filled with spicy potato mash.",
+        price: 90,
+        category: "veg",
+        restaurant: "rest6",
+        imageUrl: "https://images.unsplash.com/photo-1617191514008-9449e2f1c95e",
+    },
+    {
+        _id: "prod6",
+        name: "Butter Chicken",
+        description: "Tender chicken in creamy tomato gravy.",
+        price: 220,
+        category: "non-veg",
+        restaurant: "rest5",
+        imageUrl: "https://images.unsplash.com/photo-1604908177522-b7c1de95403b",
+    },
+    {
+        _id: "prod7",
+        name: "Rajma Chawal",
+        description: "Red kidney beans curry with rice.",
+        price: 100,
+        category: "veg",
+        restaurant: "rest3",
+        imageUrl: "https://images.unsplash.com/photo-1615361200896-5145a88b03ce",
+    },
+    {
+        _id: "prod8",
+        name: "Fish Curry",
+        description: "Spicy coastal-style fish curry with steamed rice.",
+        price: 240,
+        category: "non-veg",
+        restaurant: "rest7",
+        imageUrl: "https://images.unsplash.com/photo-1600628422019-7c66f1d69b90",
+    },
 ];
 
 export const subscriptionarray = [

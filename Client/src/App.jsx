@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
   const location = useLocation()
   const isAuthPage = location.pathname === "/"
 
-  return <div className="flex flex-col min-h-screen space-y-3">
+  return <div className="flex flex-col min-h-screen">
     {!isAuthPage && <Navbar />}
     {children}
     {!isAuthPage && <Footer />}
@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
 
 function App() {
 
-  const { loading, setUserInfo, setLoading, setAddress } = useAppStore()
+  const { loading, setUserInfo, setLoading, setAddresses } = useAppStore()
   const { get } = useApi()
 
 
@@ -49,8 +49,9 @@ function App() {
       const result = await get(GET_USER_INFO)
       if (result.success) {
         setUserInfo(result.data.user)
-        if (!result.data.address.isEmpty()) {
-          setAddress(result.data.address)
+        if (result.data.address) {
+          console.log(result)
+          setAddresses(result.data.address)
         }
       }
 

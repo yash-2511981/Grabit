@@ -9,6 +9,7 @@ const userSlices = (set) => ({
     setFilter: (category) => set({ category }),
     setVegMode: (vegMode) => set({ vegMode }),
     setUserInfo: (userInfo) => set({ userInfo }),
+    setAddresses: (addresses) => set({ addresses }),
     setAddress: (address) => set((state) => ({
         addresses: [...state.addresses, address]
     })),
