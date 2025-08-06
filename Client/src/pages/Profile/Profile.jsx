@@ -5,11 +5,13 @@ import UpdateProfileForm from "./Forms/UpdateProfile";
 import AddaddressForm from "./Forms/Addaddress";
 import ChangePasswordForm from "./Forms/ChangePassword";
 import { useState } from "react";
+import ManageAddress from "./Forms/ManageAddress";
 
 const Modal = ({ modal, setShowModal }) => {
     if (modal === "update") return <UpdateProfileForm setShowModal={setShowModal} />
     if (modal === "addaddress") return <AddaddressForm setShowModal={setShowModal} />
     if (modal === "changepassword") return <ChangePasswordForm setShowModal={setShowModal} />
+    if (modal === "manageaddress") return <ManageAddress setShowModal={setShowModal} />
 }
 
 const Profile = () => {
@@ -99,7 +101,7 @@ const Profile = () => {
                                     <p className="text-sm text-muted-foreground">Manage your delivery locations</p>
                                 </div>
                             </div>
-                            <Button variant="ghost" size="sm" onClick={() => setShowModal("addaddress")}>
+                            <Button variant="ghost" size="sm" onClick={() => setShowModal("manageaddress")}>
                                 <EditIcon className="h-4 w-4" />
                             </Button>
                         </div>
