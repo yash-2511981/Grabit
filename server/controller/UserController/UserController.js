@@ -29,6 +29,7 @@ export const getUserInfo = async (req, res) => {
             }
         })
 
+
         const { password, ...userDet } = user.toObject()
 
         res.status(200).json({
