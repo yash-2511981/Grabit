@@ -10,7 +10,7 @@ import { useState } from 'react'
 const AddaddressForm = ({ setShowModal }) => {
 
     const { post } = useApi()
-    const { setAddress } = useAppStore()
+    const { addAddress } = useAppStore()
 
     const [formValue, setFormValue] = useState({
         roomNo: "",
@@ -30,7 +30,7 @@ const AddaddressForm = ({ setShowModal }) => {
             setShowModal(false)
             const result = await post(ADD_ADDRESS, formValue, "Address Added Successfully")
             if (result.success) {
-                setAddress(result.data)
+                addAddress(result.data)
             }
         } catch (error) {
             console.log(error)

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useAppStore } from "@/store/store";
-import { EditIcon, PlusIcon, Shield, TriangleAlert, User, MapPin } from "lucide-react";
+import { EditIcon, PlusIcon, Shield, TriangleAlert, User, MapPin, Eye } from "lucide-react";
 import UpdateProfileForm from "./Forms/UpdateProfile";
 import AddaddressForm from "./Forms/Addaddress";
 import ChangePasswordForm from "./Forms/ChangePassword";
@@ -55,9 +55,9 @@ const Profile = () => {
                             )}
                         </div>
                     </div>
-                    <Button variant="outline" size="sm" className="gap-2" onClick={() => setShowModal("update")}>
+                    <Button variant="outline" size="sm" className="gap-2" onClick={() => setShowModal("update")} title="Edit Profile">
                         <EditIcon className="h-4 w-4" />
-                        Edit Profile
+                        <span className="hidden sm:block">Edit Profile </span>
                     </Button>
                 </div>
             </div>
@@ -102,7 +102,7 @@ const Profile = () => {
                                 </div>
                             </div>
                             <Button variant="ghost" size="sm" onClick={() => setShowModal("manageaddress")}>
-                                <EditIcon className="h-4 w-4" />
+                                <Eye className="h-4 w-4" />
                             </Button>
                         </div>
                     </div>
@@ -111,8 +111,8 @@ const Profile = () => {
 
             {/* Password & Security Section */}
             <div className="border border-gray-200 bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
+                <div className="flex items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-2">
+                    <div className="flex items-center gap-4 max-sm:w-full">
                         <div className="h-12 w-12 bg-blue-100 rounded-full flex items-center justify-center">
                             <Shield className="h-6 w-6 text-blue-600" />
                         </div>
@@ -121,7 +121,7 @@ const Profile = () => {
                             <p className="text-muted-foreground text-sm">Keep your account secure</p>
                         </div>
                     </div>
-                    <Button variant="outline" size="sm" className="gap-2" onClick={() => setShowModal("changepassword")}>
+                    <Button variant="outline" size="sm" className="gap-2 max-sm:ml-15" onClick={() => setShowModal("changepassword")}>
                         <Shield className="h-4 w-4" />
                         Change Password
                     </Button>

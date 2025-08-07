@@ -6,7 +6,7 @@ export const productArray = [
         price: 180,
         category: "veg",
         restaurant: "rest1",
-        imageUrl: "https://images.unsplash.com/photo-1608759263651-814345c5093d",
+        imageUrl: "https://www.livingsmartandhealthy.com/wp-content/uploads/2023/06/paneer-butter-masala-recipe-500x500.jpg",
     },
     {
         _id: "prod2",
@@ -15,7 +15,7 @@ export const productArray = [
         price: 250,
         category: "non-veg",
         restaurant: "rest2",
-        imageUrl: "https://images.unsplash.com/photo-1600628422019-7c66f1d69b90",
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Hyderabadi_Chicken_Biryani.jpg",
     },
     {
         _id: "prod3",
@@ -24,7 +24,7 @@ export const productArray = [
         price: 130,
         category: "veg",
         restaurant: "rest3",
-        imageUrl: "https://images.unsplash.com/photo-1612097031235-02ec98735c9b",
+        imageUrl: "https://media.istockphoto.com/id/1158623408/photo/indian-hindu-veg-thali-food-platter-selective-focus.jpg?s=612x612&w=0&k=20&c=MOm3sfIfL22URV6juSCxpA3yfr4O63yJUV5vitufR7Y=",
     },
     {
         _id: "prod4",
@@ -33,7 +33,7 @@ export const productArray = [
         price: 200,
         category: "non-veg",
         restaurant: "rest4",
-        imageUrl: "https://images.unsplash.com/photo-1555992336-03a23c7b20ce",
+        imageUrl: "https://www.shutterstock.com/image-photo/deliciously-spiced-chicken-tikka-kabab-600nw-2495838045.jpg",
     },
     {
         _id: "prod5",
@@ -42,7 +42,7 @@ export const productArray = [
         price: 90,
         category: "veg",
         restaurant: "rest6",
-        imageUrl: "https://images.unsplash.com/photo-1617191514008-9449e2f1c95e",
+        imageUrl: "https://t4.ftcdn.net/jpg/01/89/45/21/360_F_189452136_gJBG4ZRXY9NnZZCGV2s8QhObmpeerJTO.jpg",
     },
     {
         _id: "prod6",
@@ -51,7 +51,7 @@ export const productArray = [
         price: 220,
         category: "non-veg",
         restaurant: "rest5",
-        imageUrl: "https://images.unsplash.com/photo-1604908177522-b7c1de95403b",
+        imageUrl: "https://t3.ftcdn.net/jpg/06/01/41/68/360_F_601416862_AfYdeefqT1kGqWTx1DZCsJZVzYIDFzPR.jpg",
     },
     {
         _id: "prod7",
@@ -60,7 +60,7 @@ export const productArray = [
         price: 100,
         category: "veg",
         restaurant: "rest3",
-        imageUrl: "https://images.unsplash.com/photo-1615361200896-5145a88b03ce",
+        imageUrl: "https://media.istockphoto.com/id/1298568253/photo/rajma-red-bean-masala-red-bean-kidney-curry-with-rice-in-a-clay-bowl-on-a-concrete-table-with.jpg?s=612x612&w=0&k=20&c=uTZg2ZGwz5rDUIriwripbJ7iYkj6u_d64HFVQsKzQRE=",
     },
     {
         _id: "prod8",
@@ -69,7 +69,43 @@ export const productArray = [
         price: 240,
         category: "non-veg",
         restaurant: "rest7",
-        imageUrl: "https://images.unsplash.com/photo-1600628422019-7c66f1d69b90",
+        imageUrl: "https://media.istockphoto.com/id/1295772368/photo/macher-jhol-in-black-bowl-on-dark-slate-table-top-indian-cuisine-bengali-fish-curry-asian.jpg?s=612x612&w=0&k=20&c=3asIIURIgisLwXAijZnmNY3p2EWEZEHzByjk7ke9xZk=",
+    },
+    {
+        _id: "prod1",
+        name: "Paneer Butter Masala",
+        description: "Creamy cottage cheese curry in tomato-based gravy.",
+        price: 180,
+        category: "veg",
+        restaurant: "rest1",
+        imageUrl: "https://www.livingsmartandhealthy.com/wp-content/uploads/2023/06/paneer-butter-masala-recipe-500x500.jpg",
+    },
+    {
+        _id: "prod2",
+        name: "Hyderabadi Biryani",
+        description: "Authentic spicy biryani with chicken and saffron rice.",
+        price: 250,
+        category: "non-veg",
+        restaurant: "rest2",
+        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Hyderabadi_Chicken_Biryani.jpg",
+    },
+    {
+        _id: "prod3",
+        name: "Veg Thali",
+        description: "Balanced meal with roti, sabzi, dal, rice, and sweet.",
+        price: 130,
+        category: "veg",
+        restaurant: "rest3",
+        imageUrl: "https://media.istockphoto.com/id/1158623408/photo/indian-hindu-veg-thali-food-platter-selective-focus.jpg?s=612x612&w=0&k=20&c=MOm3sfIfL22URV6juSCxpA3yfr4O63yJUV5vitufR7Y=",
+    },
+    {
+        _id: "prod4",
+        name: "Chicken Tikka",
+        description: "Grilled chicken pieces marinated in spices.",
+        price: 200,
+        category: "non-veg",
+        restaurant: "rest4",
+        imageUrl: "https://www.shutterstock.com/image-photo/deliciously-spiced-chicken-tikka-kabab-600nw-2495838045.jpg",
     },
     {
         _id: "prod5",
@@ -78,7 +114,7 @@ export const productArray = [
         price: 90,
         category: "veg",
         restaurant: "rest6",
-        imageUrl: "https://images.unsplash.com/photo-1617191514008-9449e2f1c95e",
+        imageUrl: "https://t4.ftcdn.net/jpg/01/89/45/21/360_F_189452136_gJBG4ZRXY9NnZZCGV2s8QhObmpeerJTO.jpg",
     },
     {
         _id: "prod6",
@@ -87,7 +123,7 @@ export const productArray = [
         price: 220,
         category: "non-veg",
         restaurant: "rest5",
-        imageUrl: "https://images.unsplash.com/photo-1604908177522-b7c1de95403b",
+        imageUrl: "https://t3.ftcdn.net/jpg/06/01/41/68/360_F_601416862_AfYdeefqT1kGqWTx1DZCsJZVzYIDFzPR.jpg",
     },
     {
         _id: "prod7",
@@ -96,7 +132,7 @@ export const productArray = [
         price: 100,
         category: "veg",
         restaurant: "rest3",
-        imageUrl: "https://images.unsplash.com/photo-1615361200896-5145a88b03ce",
+        imageUrl: "https://media.istockphoto.com/id/1298568253/photo/rajma-red-bean-masala-red-bean-kidney-curry-with-rice-in-a-clay-bowl-on-a-concrete-table-with.jpg?s=612x612&w=0&k=20&c=uTZg2ZGwz5rDUIriwripbJ7iYkj6u_d64HFVQsKzQRE=",
     },
     {
         _id: "prod8",
@@ -105,7 +141,7 @@ export const productArray = [
         price: 240,
         category: "non-veg",
         restaurant: "rest7",
-        imageUrl: "https://images.unsplash.com/photo-1600628422019-7c66f1d69b90",
+        imageUrl: "https://media.istockphoto.com/id/1295772368/photo/macher-jhol-in-black-bowl-on-dark-slate-table-top-indian-cuisine-bengali-fish-curry-asian.jpg?s=612x612&w=0&k=20&c=3asIIURIgisLwXAijZnmNY3p2EWEZEHzByjk7ke9xZk=",
     },
 ];
 
@@ -280,3 +316,189 @@ export const filtersArray = [
     { text: "Restaurants", value: "restaurants" },
     { text: "Subscriptions", value: "subscriptions" },
 ]
+
+export const dummyCartItems = [
+    {
+        product: {
+            _id: "prod1",
+            name: "Paneer Butter Masala",
+            description: "Creamy cottage cheese curry in tomato-based gravy.",
+            price: 180,
+            category: "veg",
+            restaurant: "rest1",
+            imageUrl: "https://www.livingsmartandhealthy.com/wp-content/uploads/2023/06/paneer-butter-masala-recipe-500x500.jpg",
+        },
+        quantity: 2,
+    },
+    {
+        product: {
+            _id: "prod2",
+            name: "Hyderabadi Biryani",
+            description: "Authentic spicy biryani with chicken and saffron rice.",
+            price: 250,
+            category: "non-veg",
+            restaurant: "rest2",
+            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Hyderabadi_Chicken_Biryani.jpg",
+        },
+        quantity: 1,
+    },
+    {
+        product: {
+            _id: "prod5",
+            name: "Masala Dosa",
+            description: "Crispy dosa filled with spicy potato mash.",
+            price: 90,
+            category: "veg",
+            restaurant: "rest6",
+            imageUrl: "https://t4.ftcdn.net/jpg/01/89/45/21/360_F_189452136_gJBG4ZRXY9NnZZCGV2s8QhObmpeerJTO.jpg",
+        },
+        quantity: 3,
+    },
+    {
+        product: {
+            _id: "prod6",
+            name: "Butter Chicken",
+            description: "Tender chicken in creamy tomato gravy.",
+            price: 220,
+            category: "non-veg",
+            restaurant: "rest5",
+            imageUrl: "https://t3.ftcdn.net/jpg/06/01/41/68/360_F_601416862_AfYdeefqT1kGqWTx1DZCsJZVzYIDFzPR.jpg",
+        },
+        quantity: 1,
+    },
+];
+
+export const Orders = [
+    {
+        _id: "order1",
+        user: "user1",
+        address: "addr1",
+        products: [
+            {
+                product: {
+                    _id: "prod1",
+                    name: "Paneer Butter Masala",
+                    description: "Creamy cottage cheese curry in tomato-based gravy.",
+                    price: 180,
+                    category: "veg",
+                    restaurant: "rest1",
+                    imageUrl: "https://www.livingsmartandhealthy.com/wp-content/uploads/2023/06/paneer-butter-masala-recipe-500x500.jpg",
+                },
+                quantity: 2,
+            },
+            {
+                product: {
+                    _id: "prod5",
+                    name: "Masala Dosa",
+                    description: "Crispy dosa filled with spicy potato mash.",
+                    price: 90,
+                    category: "veg",
+                    restaurant: "rest6",
+                    imageUrl: "https://t4.ftcdn.net/jpg/01/89/45/21/360_F_189452136_gJBG4ZRXY9NnZZCGV2s8QhObmpeerJTO.jpg",
+                },
+                quantity: 1,
+            },
+        ],
+        amount: 180 * 2 + 90,
+        orderStatus: "confirm",
+        paymentStatus: "completed",
+        createdAt: new Date("2025-08-01T10:00:00Z"),
+        createdFromSubscriptions: false,
+    },
+    {
+        _id: "order2",
+        user: "user2",
+        address: "addr2",
+        products: [
+            {
+                product: {
+                    _id: "prod2",
+                    name: "Hyderabadi Biryani",
+                    description: "Authentic spicy biryani with chicken and saffron rice.",
+                    price: 250,
+                    category: "non-veg",
+                    restaurant: "rest2",
+                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Hyderabadi_Chicken_Biryani.jpg",
+                },
+                quantity: 1,
+            },
+            {
+                product: {
+                    _id: "prod4",
+                    name: "Chicken Tikka",
+                    description: "Grilled chicken pieces marinated in spices.",
+                    price: 200,
+                    category: "non-veg",
+                    restaurant: "rest4",
+                    imageUrl: "https://www.shutterstock.com/image-photo/deliciously-spiced-chicken-tikka-kabab-600nw-2495838045.jpg",
+                },
+                quantity: 2,
+            },
+        ],
+        amount: 250 + 200 * 2,
+        orderStatus: "packed",
+        paymentStatus: "pending",
+        createdAt: new Date("2025-08-02T13:45:00Z"),
+        createdFromSubscriptions: true,
+    },
+    {
+        _id: "order3",
+        user: "user3",
+        address: "addr3",
+        products: [
+            {
+                product: {
+                    _id: "prod3",
+                    name: "Veg Thali",
+                    description: "Balanced meal with roti, sabzi, dal, rice, and sweet.",
+                    price: 130,
+                    category: "veg",
+                    restaurant: "rest3",
+                    imageUrl: "https://media.istockphoto.com/id/1158623408/photo/indian-hindu-veg-thali-food-platter-selective-focus.jpg?s=612x612&w=0&k=20&c=MOm3sfIfL22URV6juSCxpA3yfr4O63yJUV5vitufR7Y=",
+                },
+                quantity: 3,
+            },
+        ],
+        amount: 130 * 3,
+        orderStatus: "on the way",
+        paymentStatus: "completed",
+        createdAt: new Date("2025-08-03T08:20:00Z"),
+        createdFromSubscriptions: false,
+    },
+    {
+        _id: "order4",
+        user: "user4",
+        address: "addr4",
+        products: [
+            {
+                product: {
+                    _id: "prod6",
+                    name: "Butter Chicken",
+                    description: "Tender chicken in creamy tomato gravy.",
+                    price: 220,
+                    category: "non-veg",
+                    restaurant: "rest5",
+                    imageUrl: "https://t3.ftcdn.net/jpg/06/01/41/68/360_F_601416862_AfYdeefqT1kGqWTx1DZCsJZVzYIDFzPR.jpg",
+                },
+                quantity: 1,
+            },
+            {
+                product: {
+                    _id: "prod8",
+                    name: "Fish Curry",
+                    description: "Spicy coastal-style fish curry with steamed rice.",
+                    price: 240,
+                    category: "non-veg",
+                    restaurant: "rest7",
+                    imageUrl: "https://media.istockphoto.com/id/1295772368/photo/macher-jhol-in-black-bowl-on-dark-slate-table-top-indian-cuisine-bengali-fish-curry-asian.jpg?s=612x612&w=0&k=20&c=3asIIURIgisLwXAijZnmNY3p2EWEZEHzByjk7ke9xZk=",
+                },
+                quantity: 1,
+            },
+        ],
+        amount: 220 + 240,
+        orderStatus: "picked",
+        paymentStatus: "completed",
+        createdAt: new Date("2025-08-04T17:30:00Z"),
+        createdFromSubscriptions: true,
+    },
+];

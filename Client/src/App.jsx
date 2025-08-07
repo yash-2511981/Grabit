@@ -3,7 +3,7 @@ import Loading from "./components/ui/loading"
 import Auth from "./pages/Auth/Auth"
 import { useAppStore } from "./store/store"
 import useApi from "./hooks/useApi"
-import { GET_USER_INFO } from "./lib/constants"
+import { GET_CART_ITEMS, GET_PRODUCTS, GET_USER_INFO } from "./lib/constants"
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom"
 import Home from "./pages/Home/Home"
 import Navbar from "./components/Navbar"
@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
   const location = useLocation()
   const isAuthPage = location.pathname === "/"
 
-  return <div className="flex flex-col min-h-screen">
+  return <div className="flex flex-col min-h-screen space-y-2">
     {!isAuthPage && <Navbar />}
     {children}
     {!isAuthPage && <Footer />}
@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
 
 function App() {
 
-  const { loading, setUserInfo, setLoading, setAddresses } = useAppStore()
+  const { loading, setUserInfo, setLoading, setCartItems, setProducts, setAddresses } = useAppStore()
   const { get } = useApi()
 
 
@@ -47,13 +47,23 @@ function App() {
       setLoading(true);
 
       const result = await get(GET_USER_INFO)
+      const cartItems = await get(GET_CART_ITEMS)
+      const products = await get(GET_PRODUCTS)
+
+      if (products.success) {
+        setProducts(products.data.products)
+      }
+
+      if (cartItems.success) {
+        setCartItems(cartItems.data.cartItems)
+      }
+
       if (result.success) {
         setUserInfo(result.data.user)
-        if (result.data.address) {
-          console.log(result)
-          setAddresses(result.data.address)
-        }
+        setAddresses(result.data?.address)
       }
+
+
 
       setLoading(false)
     }
