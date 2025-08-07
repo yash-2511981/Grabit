@@ -1,10 +1,8 @@
 import { validationResult } from "express-validator"
 import { AddressModel } from "../../model/AddressModel.js"
-import { OrderModel } from "../../model/OrderModel.js"
 import { ProductModel } from "../../model/ProductModel.js"
 import { UserModel } from "../../model/UserModel.js"
 import bcrypt from 'bcrypt'
-import { use } from "react"
 
 
 //Get User Info end point
