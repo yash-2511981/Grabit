@@ -4,6 +4,7 @@ import { OrderModel } from "../../model/OrderModel.js"
 import { ProductModel } from "../../model/ProductModel.js"
 import { UserModel } from "../../model/UserModel.js"
 import bcrypt from 'bcrypt'
+import { use } from "react"
 
 
 //Get User Info end point
@@ -22,12 +23,6 @@ export const getUserInfo = async (req, res) => {
 
 
         const address = await AddressModel.find({ user: id })
-        const orderDtails = await OrderModel.find({ user: id }).populate("product", "name description")
-        const cartDetails = await ProductModel.find({
-            _id: {
-                $in: user.cart.map(c => c.product)
-            }
-        })
 
 
         const { password, ...userDet } = user.toObject()
@@ -37,8 +32,6 @@ export const getUserInfo = async (req, res) => {
                 ...userDet
             },
             address,
-            orderDtails,
-            cartDetails,
         })
     } catch (error) {
         console.log(error)
@@ -109,6 +102,11 @@ export const changePassword = async (req, res) => {
 
     try {
         const user = await UserModel.findById(id);
+
+        if (!user) {
+            return res.status(401).send("Unauthorized request")
+        }
+
         const { password } = user.toObject()
 
         const isOldPasswordMatching = await bcrypt.compare(oldpassword, password)
@@ -145,6 +143,43 @@ export const addAddress = async (req, res) => {
 
         res.status(200).json({ address })
 
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Server Error.Try again later")
+    }
+}
+
+export const getProducts = async (req, res) => {
+    try {
+
+        const products = await ProductModel.find()
+
+        res.status(200).json({ products })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Server Error.Try again later")
+    }
+}
+
+export const getCartItems = async (req, res) => {
+    const { id } = req.data
+
+    try {
+        const user = await UserModel.findById(id)
+
+        if (!user) {
+            return res.status(401).send("Unauthorized request")
+        }
+
+        const { cart } = user.toObject()
+
+        const cartItems = await Promise.all(
+            cart.map((item) => {
+                return ProductModel.findById(item.product)
+            })
+        )
+
+        res.status(200).json({ cartItems })
     } catch (error) {
         console.log(error)
         res.status(500).send("Server Error.Try again later")

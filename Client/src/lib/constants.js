@@ -7,6 +7,8 @@ export const SIGN_OUT = `${AUTH_ROUTES}/signOut`
 
 
 export const GET_USER_INFO = `${AUTH_ROUTES}/get-user-info`
+export const GET_CART_ITEMS = `${AUTH_ROUTES}/get-cart-items`
+export const GET_PRODUCTS = `${AUTH_ROUTES}/get-products`
 
 export const UPDATE_PERSONAL_INFO = `${AUTH_ROUTES}/update-info`
 export const CHANGE_PASSWORD = `${AUTH_ROUTES}/change-password`
