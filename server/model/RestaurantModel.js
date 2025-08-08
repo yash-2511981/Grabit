@@ -9,7 +9,8 @@ const restaurantSchema = new Schema({
   pincode: { type: Number, required: true },
   password: { type: String, required: true },
   products: [{ type: Schema.Types.ObjectId, ref: "product" }],
-  imageUrl: { type: String }
+  imageUrl: { type: String },
+  status: { type: String, enum: ["open", "close"] }
 }, { timestamps: true });
 
 export const RestaurantModel = mongoose.model("restaurant", restaurantSchema);
