@@ -13,7 +13,7 @@ import { useAppStore } from "@/store/store"
 import { useNavigate } from "react-router-dom"
 
 export function Profile() {
-    const { userInfo, setUserInfo, addresses } = useAppStore()
+    const { userInfo, setUserInfo, addresses, cartItems } = useAppStore()
     const { post } = useApi()
     const navigate = useNavigate()
 
@@ -49,6 +49,11 @@ export function Profile() {
                 </DropdownMenuItem>
                 <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer">
                     Cart
+                    {cartItems.length !== 0 && (
+                        <DropdownMenuShortcut className="bg-amber-500 h-4 w-4 rounded-full text-white text-xs flex items-center justify-center ml-auto">
+                            {cartItems.length}
+                        </DropdownMenuShortcut>
+                    )}
                 </DropdownMenuItem>
                 <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer">
                     Orders
