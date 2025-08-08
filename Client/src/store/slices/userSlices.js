@@ -18,7 +18,7 @@ const userSlices = (set) => ({
     addAddress: (address) => set((state) => ({
         addresses: [...state.addresses, address]
     })),
-    addCartItems: (item) =>
+    addCartItem: (item) =>
         set((state) => ({
             cartItems: [...state.cartItems, item],
         })),

@@ -1,14 +1,11 @@
 import apiClient from '@/lib/axiosclient'
-import { useAppStore } from '@/store/store'
 import { toast } from 'sonner'
 
 const useApi = () => {
-    const { setLoading } = useAppStore()
 
     const makeRequest = async (method, route, data, successMessage) => {
 
         try {
-            setLoading(true)
             const config = { withCredentials: true }
             let response;
 
@@ -51,8 +48,6 @@ const useApi = () => {
             return {
                 success: false
             }
-        } finally {
-            setLoading(false)
         }
     }
 
