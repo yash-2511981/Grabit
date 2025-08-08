@@ -2,8 +2,21 @@ import { cn } from '@/lib/utils'
 import { CarTaxiFrontIcon, LucideShoppingBag, ShoppingBag, ShoppingBagIcon, ShoppingBasket, ShoppingCart } from 'lucide-react'
 import React from 'react'
 import { Button } from './ui/button'
+import useApi from '@/hooks/useApi'
+import { ADD_TO_CART } from '@/lib/constants'
+import { useAppStore } from '@/store/store'
 
 const Product = ({ product }) => {
+    const { post } = useApi()
+    const { addCartItem } = useAppStore()
+
+    const handleAddToCart = async () => {
+        const result = await post(ADD_TO_CART, { productId: product._id }, "Item Added in cart")
+        if (result.success) {
+            addCartItem(result.data.product)
+        }
+    }
+
     return (
         <div className="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border-2 border-transparent hover:border-orange-200 group">
             <div className="relative">
@@ -20,8 +33,8 @@ const Product = ({ product }) => {
                     </div>
                 </div>
                 <div className='absolute bottom-2 right-2 hidden group-hover:block max-sm:block'>
-                    <Button className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white rounded-xl text-sm font-semibold transition-all duration-200 hover:shadow-md cursor-pointer" title="Add to cart">
-                        <ShoppingBagIcon size={20}/>
+                    <Button className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white rounded-xl text-sm font-semibold transition-all duration-200 hover:shadow-md cursor-pointer" title="Add to cart" onClick={handleAddToCart}>
+                        <ShoppingBagIcon size={20} />
                     </Button>
                 </div>
             </div>
