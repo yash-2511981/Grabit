@@ -3,6 +3,8 @@ import { AddressModel } from "../../model/AddressModel.js"
 import { ProductModel } from "../../model/ProductModel.js"
 import { UserModel } from "../../model/UserModel.js"
 import bcrypt from 'bcrypt'
+import { RestaurantModel } from "../../model/RestaurantModel.js"
+import mongoose from "mongoose"
 
 
 //Get User Info end point
@@ -23,7 +25,7 @@ export const getUserInfo = async (req, res) => {
         const address = await AddressModel.find({ user: id })
 
 
-        const { password, ...userDet } = user.toObject()
+        const { password, cart, ...userDet } = user.toObject()
 
         res.status(200).json({
             user: {
@@ -36,34 +38,6 @@ export const getUserInfo = async (req, res) => {
         res.status(500).send("Internal server error")
     }
 }
-
-
-
-export const addToCart = async (req, res) => {
-    try {
-        const { id } = req.data;
-        let { product, quantity } = req.body;
-
-        quantity = quantity && quantity > 0 ? quantity : 1;
-
-        const isProductPresent = await ProductModel.findById(product);
-        if (!isProductPresent) {
-            return res.status(404).json({ error: "Product not found" });
-        }
-
-        const user = await UserModel.findByIdAndUpdate(id, {
-            $push: {
-                cart: { product, quantity }
-            }
-        });
-
-        res.status(200).json({ user })
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Internal Server Error");
-    }
-};
 
 
 export const updatePersonalInfo = async (req, res) => {
@@ -148,11 +122,21 @@ export const addAddress = async (req, res) => {
 }
 
 export const getProducts = async (req, res) => {
+    const { id } = req.data;
     try {
+        const user = await UserModel.findById(id).select("pincode")
 
-        const products = await ProductModel.find()
+        const restaurants = await RestaurantModel.find({ pincode: user.pincode }).select("_id")
+        if (restaurants.length === 0) {
+            return res.status(200).send("There is no Restaurant near you")
+        }
+
+        const restaurantIds = restaurants.map(r => r._id)
+
+        const products = await ProductModel.find({ restaurant: { $in: restaurantIds } })
 
         res.status(200).json({ products })
+
     } catch (error) {
         console.log(error)
         res.status(500).send("Server Error.Try again later")
@@ -172,8 +156,9 @@ export const getCartItems = async (req, res) => {
         const { cart } = user.toObject()
 
         const cartItems = await Promise.all(
-            cart.map((item) => {
-                return ProductModel.findById(item.product)
+            cart.map(async (item) => {
+                const product = await ProductModel.findById(item.product)
+                return { product, quantity: item.quantity }
             })
         )
 
@@ -181,5 +166,47 @@ export const getCartItems = async (req, res) => {
     } catch (error) {
         console.log(error)
         res.status(500).send("Server Error.Try again later")
+    }
+}
+
+export const addToCart = async (req, res) => {
+    try {
+        const { id } = req.data;
+        let { productId } = req.body;
+
+        const product = await ProductModel.findById(productId);
+        if (!product) {
+            return res.status(404).json({ error: "Product not found" });
+        }
+
+        await UserModel.findByIdAndUpdate(id, {
+            $push: {
+                cart: { product: product.id }
+            }
+        });
+
+        res.status(200).json({ product })
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+};
+
+export const deleteCartItem = async (req, res) => {
+    const { id } = req.data;
+    const { productId } = req.body
+    try {
+        await UserModel.findByIdAndUpdate(id, {
+            $pull: {
+                cart: { product: productId }
+            }
+        })
+
+        res.status(200).send()
+
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send("Server Error. Try again later")
     }
 }

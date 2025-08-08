@@ -123,7 +123,7 @@ export const signOut = async (req, res) => {
 
         res.clearCookie("jwt", {
             httpOnly: true,
-            sameSite: "None",
+        sameSite: "None",
             secure: true,
         })
 
