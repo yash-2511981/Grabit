@@ -4,10 +4,10 @@ import { useAppStore } from '@/store/store'
 import React from 'react'
 
 const CategoryFilterButton = ({ text, value }) => {
-    const { setFilter, category } = useAppStore()
+    const { setCategory, category } = useAppStore()
 
     const handleClick = () => {
-        setFilter(value)
+        setCategory(value)
     }
 
     return (
