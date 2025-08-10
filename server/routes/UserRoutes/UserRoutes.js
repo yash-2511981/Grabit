@@ -2,8 +2,8 @@ import { Router } from "express";
 import { register, signIn, signOut } from "../../controller/UserController/AuthController.js";
 import { addressValidations, loginValidation, registerValidation } from "../../middleware/AuthMiddleware.js";
 import { jwtVerify } from "../../lib/utils.js";
-import { addAddress, addToCart, changePassword, deleteCartItem, getCartItems, getProducts, getUserInfo, updatePersonalInfo } from "../../controller/UserController/UserController.js";
-import { getAllProducts } from "../../controller/controller.js";
+import { addAddress, changePassword, getDisplayItems, getProducts, getRestaurants, getUserInfo, updatePersonalInfo } from "../../controller/UserController/UserController.js";
+import { addToCart, deleteCartItem, getCartItems } from "../../controller/UserController/CartController.js";
 
 const userRouter = Router();
 
@@ -14,9 +14,10 @@ userRouter.post("/signOut", signOut)
 
 //user routes
 userRouter.get("/get-user-info", jwtVerify, getUserInfo)
-userRouter.get("/get-all-products", jwtVerify, getAllProducts);
 userRouter.get("/get-cart-items", jwtVerify, getCartItems);
 userRouter.get("/get-products", jwtVerify, getProducts);
+userRouter.get("/get-restaurants", jwtVerify, getRestaurants);
+userRouter.post("/get-displayItems", jwtVerify, getDisplayItems)
 
 //profile related routes
 userRouter.patch("/update-info", jwtVerify, updatePersonalInfo)
