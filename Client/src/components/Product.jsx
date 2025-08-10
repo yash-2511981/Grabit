@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { CarTaxiFrontIcon, LucideShoppingBag, ShoppingBag, ShoppingBagIcon, ShoppingBasket, ShoppingCart } from 'lucide-react'
+import { ShoppingBagIcon } from 'lucide-react'
 import React from 'react'
 import { Button } from './ui/button'
 import useApi from '@/hooks/useApi'
@@ -13,7 +13,7 @@ const Product = ({ product }) => {
     const handleAddToCart = async () => {
         const result = await post(ADD_TO_CART, { productId: product._id }, "Item Added in cart")
         if (result.success) {
-            addCartItem(result.data.product)
+            addCartItem(result.data)
         }
     }
 
