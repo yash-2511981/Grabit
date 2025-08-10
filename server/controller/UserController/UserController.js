@@ -4,7 +4,7 @@ import { ProductModel } from "../../model/ProductModel.js"
 import { UserModel } from "../../model/UserModel.js"
 import bcrypt from 'bcrypt'
 import { RestaurantModel } from "../../model/RestaurantModel.js"
-import mongoose from "mongoose"
+import { SubscriptionModel } from "../../model/SubscriptionModel.js"
 
 
 //Get User Info end point
@@ -126,7 +126,7 @@ export const getProducts = async (req, res) => {
     try {
         const user = await UserModel.findById(id).select("pincode")
 
-        const restaurants = await RestaurantModel.find({ pincode: user.pincode }).select("_id")
+        const restaurants = await RestaurantModel.find({ pincode: user.pincode, status: "open" }).select("_id")
         if (restaurants.length === 0) {
             return res.status(200).send("There is no Restaurant near you")
         }
@@ -143,70 +143,103 @@ export const getProducts = async (req, res) => {
     }
 }
 
-export const getCartItems = async (req, res) => {
-    const { id } = req.data
-
-    try {
-        const user = await UserModel.findById(id)
-
-        if (!user) {
-            return res.status(401).send("Unauthorized request")
-        }
-
-        const { cart } = user.toObject()
-
-        const cartItems = await Promise.all(
-            cart.map(async (item) => {
-                const product = await ProductModel.findById(item.product)
-                return { product, quantity: item.quantity }
-            })
-        )
-
-        res.status(200).json({ cartItems })
-    } catch (error) {
-        console.log(error)
-        res.status(500).send("Server Error.Try again later")
-    }
-}
-
-export const addToCart = async (req, res) => {
-    try {
-        const { id } = req.data;
-        let { productId } = req.body;
-
-        const product = await ProductModel.findById(productId);
-        if (!product) {
-            return res.status(404).json({ error: "Product not found" });
-        }
-
-        await UserModel.findByIdAndUpdate(id, {
-            $push: {
-                cart: { product: product.id }
-            }
-        });
-
-        res.status(200).json({ product })
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Internal Server Error");
-    }
-};
-
-export const deleteCartItem = async (req, res) => {
+export const getRestaurants = async (req, res) => {
     const { id } = req.data;
-    const { productId } = req.body
+    const { vegMode } = req.body;
     try {
-        await UserModel.findByIdAndUpdate(id, {
-            $pull: {
-                cart: { product: productId }
-            }
-        })
+        const user = await UserModel.findById(id).select("pincode")
+        if (!user) {
+            return res.status(400).send("Server Error.Try again later.")
+        }
 
-        res.status(200).send()
+        let restaurants;
+        if (vegMode) {
+            restaurants = await RestaurantModel.find({ pincode: user.pincode, status: "open", category: "veg" })
+        } else {
+            restaurants = await RestaurantModel.find({ pincode: user.pincode, status: "open" })
+        }
 
+        res.status(200).json({ restaurants })
     } catch (error) {
         console.log(error)
         return res.status(500).send("Server Error. Try again later")
     }
 }
+
+export const getDisplayItems = async (req, res) => {
+    const { id } = req.data;
+    const { vegMode, category } = req.body;
+
+    try {
+        const user = await UserModel.findById(id).select("pincode").lean();
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        // Build restaurant filter conditions
+        const restaurantFilter = {
+            pincode: user.pincode,
+            status: "open"
+        };
+
+        if (vegMode) {
+            restaurantFilter.category = "veg";
+        }
+
+        // Find all valid restaurants once
+        const restaurants = await RestaurantModel.find(restaurantFilter).lean();
+
+        if (restaurants.length === 0) {
+            return res.status(200).json({
+                message: "No restaurants found near you",
+                data: []
+            });
+        }
+
+        let data;
+
+        switch (category) {
+            case "dish":
+                const restaurantIds = restaurants.map(r => r._id)
+
+                data = await ProductModel.find({ restaurant: { $in: restaurantIds } }).lean();
+                break;
+
+            case "restaurants":
+                data = restaurants.map(restaurant => ({
+                    _id: restaurant._id,
+                    name: restaurant.name,
+                    email: restaurant.email,
+                    address: restaurant.address,
+                    category: restaurant.category,
+                    phone: restaurant.phone,
+                    pincode: restaurant.pincode,
+                    imageUrl: restaurant.imageUrl,
+                    status: restaurant.status
+                }));
+                break;
+
+            case "subscriptions":
+                const subRestaurantIds = restaurants.map(r => r._id);
+                data = await SubscriptionModel.find({
+                    restaurant: { $in: subRestaurantIds }
+                }).lean();
+                break;
+
+            default:
+                return res.status(400).json({ error: "Invalid category" });
+        }
+
+        if (!data || data.length === 0) {
+            return res.status(200).json({
+                message: "No items found near you",
+                data: []
+            });
+        }
+
+        res.status(200).json({ data });
+
+    } catch (error) {
+        return res.status(500).json({ error: "Server Error. Try again later" });
+    }
+};
