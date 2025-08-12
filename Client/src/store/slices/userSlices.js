@@ -33,8 +33,50 @@ const userSlices = (set, get) => ({
         } else {
             set({ cartItems: [...prevCart, item] })
         }
-    }
-
+    },
+    increaseCartItemQuantity: (id) => {
+        const cartItems = get().cartItems;
+        const updatedCartItems = cartItems.map(item =>
+            item._id === id
+                ? { ...item, quantity: item.quantity + 1 }
+                : item
+        );
+        set({ cartItems: updatedCartItems });
+    },
+    decreaseCartItemQuantity: (id) => {
+        const cartItems = get().cartItems;
+        const updatedCartItems = cartItems.map(item =>
+            item._id === id
+                ? { ...item, quantity: Math.max(1, item.quantity - 1) } // Prevent going below 1
+                : item
+        );
+        set({ cartItems: updatedCartItems });
+    },
+    setCartItemQuantity: (id, quantity) => {
+        const cartItems = get().cartItems;
+        const updatedCartItems = cartItems.map(item =>
+            item._id === id
+                ? { ...item, quantity: Math.max(1, quantity) }
+                : item
+        );
+        set({ cartItems: updatedCartItems });
+    },
+    removeFromCart: (id) => {
+        const cartItems = get().cartItems;
+        const updatedCartItems = cartItems.filter(item => item._id !== id);
+        set({ cartItems: updatedCartItems });
+    },
+    clearCart: () => {
+        set({ cartItems: [] });
+    },
+    getCartTotal: () => {
+        const cartItems = get().cartItems;
+        return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    },
+    getCartItemCount: () => {
+        const cartItems = get().cartItems;
+        return cartItems.reduce((count, item) => count + item.quantity, 0);
+    },
 });
 
 export default userSlices;
