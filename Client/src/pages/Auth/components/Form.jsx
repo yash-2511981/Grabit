@@ -118,7 +118,7 @@ const Form = () => {
                         }
                         <div className='flex gap-2 items-center justify-center'>
                             <Button className="bg-primary w-1/2" onClick={handleSubmit} type="button" >{newRegister ? "Register" : "Login"}</Button>
-                            <Button className="bg-black text-white w-1/2" onClick={resetFields} type="button">Reset</Button>
+                            <Button className="bg-black text-white w-1/2 hover:bg-blacks" onClick={resetFields} type="button">Reset</Button>
                         </div>
                     </div>
                 </form>

@@ -58,8 +58,6 @@ function App() {
         setAddresses(result.data?.address)
       }
 
-
-
       setLoading(false)
     }
 

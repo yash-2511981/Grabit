@@ -13,7 +13,8 @@ export const GET_RESTAURANTS = `${AUTH_ROUTES}/get-restaurants`
 export const GET_DISPLAY_ITEMS = `${AUTH_ROUTES}/get-displayItems`
 
 export const ADD_TO_CART = `${AUTH_ROUTES}/add-to-cart`
-export const REMOVE_FROM_CART = `${AUTH_ROUTES}/add-to-cart`
+export const REMOVE_FROM_CART = `${AUTH_ROUTES}/delete-cart-item`
+export const UPDATE_CART = `${AUTH_ROUTES}/update-cart`
 
 
 export const UPDATE_PERSONAL_INFO = `${AUTH_ROUTES}/update-info`

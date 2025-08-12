@@ -8,7 +8,6 @@ import useApi from "@/hooks/useApi"
 import { GET_DISPLAY_ITEMS } from "@/lib/constants"
 import RestaurantCard from "@/components/Restaurant"
 import EmptyCard from "@/components/EmptyCard"
-import { Frown } from "lucide-react"
 
 const Home = () => {
   const { products, vegMode, category, setProducts, setRestaurants, setSubscriptions, restaurants } = useAppStore()
