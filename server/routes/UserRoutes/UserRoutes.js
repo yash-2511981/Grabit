@@ -3,7 +3,7 @@ import { register, signIn, signOut } from "../../controller/UserController/AuthC
 import { addressValidations, loginValidation, registerValidation } from "../../middleware/AuthMiddleware.js";
 import { jwtVerify } from "../../lib/utils.js";
 import { addAddress, changePassword, getDisplayItems, getProducts, getRestaurants, getUserInfo, updatePersonalInfo } from "../../controller/UserController/UserController.js";
-import { addToCart, deleteCartItem, getCartItems } from "../../controller/UserController/CartController.js";
+import { addToCart, deleteCartItem, getCartItems, updateCartItems } from "../../controller/UserController/CartController.js";
 
 const userRouter = Router();
 
@@ -26,6 +26,7 @@ userRouter.post("/add-address", jwtVerify, addressValidations, addAddress)
 
 //cart relateda routes
 userRouter.post("/add-to-cart", jwtVerify, addToCart);
-userRouter.delete("/delete-cart-item", jwtVerify, deleteCartItem);
+userRouter.delete("/delete-cart-item/:productId", jwtVerify, deleteCartItem);
+userRouter.patch("/update-cart", jwtVerify, updateCartItems);
 
 export default userRouter
