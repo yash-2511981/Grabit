@@ -45,7 +45,7 @@ export const addToCart = async (req, res) => {
                 { $inc: { "cart.$.quantity": 1 } },
                 { new: true }
             );
-            
+
             const cartItem = result.cart.find(item => item.product.toString() === product.id);
             quantity = cartItem.quantity;
         } else {
@@ -71,7 +71,7 @@ export const addToCart = async (req, res) => {
 
 export const deleteCartItem = async (req, res) => {
     const { id } = req.data;
-    const { productId } = req.body
+    const { productId } = req.params
     try {
         await UserModel.findByIdAndUpdate(id, {
             $pull: {
@@ -79,8 +79,27 @@ export const deleteCartItem = async (req, res) => {
             }
         })
 
-        res.status(200).send()
+        res.status(200).send("Item removed from cart")
 
+    } catch (error) {
+        console.log(error)
+        return res.status(500).send("Server Error. Try again later")
+    }
+}
+
+export const updateCartItems = async (req, res) => {
+    const { id } = req.data;
+    const { cartItems } = req.body
+
+    try {
+        for (const item of cartItems) {
+            await UserModel.updateOne(
+                { _id: id, "cart.product": item.productId },
+                { $set: { "cart.$.quantity": item.quantity } }
+            );
+        }
+
+        res.status(200).send("cart updated")
     } catch (error) {
         console.log(error)
         return res.status(500).send("Server Error. Try again later")
