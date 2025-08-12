@@ -20,7 +20,7 @@ const useApi = () => {
                     response = await apiClient.patch(route, data, config)
                     break
                 case 'delete':
-                    response = await apiClient.delete(route, data, config)
+                    response = await apiClient.delete(route, config)
                     break
             }
 
