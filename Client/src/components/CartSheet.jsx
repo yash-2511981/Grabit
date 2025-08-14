@@ -62,16 +62,17 @@ const CartSheet = () => {
                         {cartItems.length > 0 ? `Review your items and proceed to secure checkout` : `Add items in cart and proceed to secure checkout`}
                     </SheetDescription>
                 </SheetHeader>
-                {cartItems.length > 0 ? (<div className="pt-4 flex-1 min-h-0 overflow-hidden">
-                    <div className="h-full overflow-y-auto hide-scrollbar flex-col px-2">
-                        <div className="gap-3 flex flex-col">
-                            {cartItems.map((item, index) => {
-                                return <CartItem key={index || item._id} item={item} />
-                            })
-                            }
+                {cartItems.length > 0 ? (
+                    <div className="pt-4 flex-1 min-h-0 overflow-hidden">
+                        <div className="h-full overflow-y-auto hide-scrollbar flex-col px-2">
+                            <div className="gap-3 flex flex-col">
+                                {cartItems.map((item, index) => {
+                                    return <CartItem key={index || item._id} item={item} />
+                                })
+                                }
+                            </div>
                         </div>
-                    </div>
-                </div>) : (<EmptyCard text={`Oops! Your cart is empty.`} />)}
+                    </div>) : (<EmptyCard text={`Oops! Your cart is empty.`} />)}
 
                 <SheetFooter >
                     <SheetClose>
