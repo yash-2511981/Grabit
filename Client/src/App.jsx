@@ -9,6 +9,7 @@ import Home from "./pages/Home/Home"
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import Profile from "./pages/Profile/Profile"
+import Orders from "./pages/orders/Orders"
 
 const AuhtRoutes = ({ children }) => {
   const { userInfo } = useAppStore();
@@ -26,7 +27,7 @@ const Layout = ({ children }) => {
   const location = useLocation()
   const isAuthPage = location.pathname === "/"
 
-  return <div className="flex flex-col min-h-screen space-y-2">
+  return <div className="flex flex-col max-h-screen space-y-2">
     {!isAuthPage && <Navbar />}
     {children}
     {!isAuthPage && <Footer />}
@@ -87,6 +88,11 @@ function App() {
             <Route path="/profile" element={
               <PrivateRoutes>
                 <Profile />
+              </PrivateRoutes>
+            } />
+            <Route path="/orders" element={
+              <PrivateRoutes>
+                <Orders />
               </PrivateRoutes>
             } />
           </Routes>

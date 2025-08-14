@@ -29,9 +29,9 @@ export function Profile() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="bg-primary hover:bg-yellow-600 hover:text-white text-white font-semibold rounded-full text-2xl h-10 w-10">
+                <div className="flex items-center justify-center bg-primary hover:bg-yellow-600 hover:text-white text-white font-semibold rounded-full text-2xl h-10 w-10">
                     {userInfo?.firstName?.charAt(0).toUpperCase() ?? "U"}
-                </Button>
+                </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent
                 className="md:w-56 w-46  bg-white text-black border border-gray-200 shadow-xl rounded-xl mt-2"
@@ -48,7 +48,7 @@ export function Profile() {
                     )}
                 </DropdownMenuItem>
 
-                <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer">
+                <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer" onClick={() => navigate("/orders")}>
                     Orders
                 </DropdownMenuItem>
                 <DropdownMenuItem className="hover:bg-gray-100 cursor-pointer">
