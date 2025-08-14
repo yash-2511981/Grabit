@@ -368,6 +368,8 @@ export const dummyCartItems = [
     },
 ];
 
+
+
 export const Orders = [
     {
         _id: "order1",
@@ -378,11 +380,6 @@ export const Orders = [
                 product: {
                     _id: "prod1",
                     name: "Paneer Butter Masala",
-                    description: "Creamy cottage cheese curry in tomato-based gravy.",
-                    price: 180,
-                    category: "veg",
-                    restaurant: "rest1",
-                    imageUrl: "https://www.livingsmartandhealthy.com/wp-content/uploads/2023/06/paneer-butter-masala-recipe-500x500.jpg",
                 },
                 quantity: 2,
             },
@@ -390,11 +387,107 @@ export const Orders = [
                 product: {
                     _id: "prod5",
                     name: "Masala Dosa",
-                    description: "Crispy dosa filled with spicy potato mash.",
-                    price: 90,
-                    category: "veg",
-                    restaurant: "rest6",
-                    imageUrl: "https://t4.ftcdn.net/jpg/01/89/45/21/360_F_189452136_gJBG4ZRXY9NnZZCGV2s8QhObmpeerJTO.jpg",
+                },
+                quantity: 1,
+            },
+        ],
+        amount: 180 * 2 + 90,
+        orderStatus: "completed",
+        paymentStatus: "completed",
+        createdAt: new Date("2025-08-01T10:00:00Z"),
+        createdFromSubscriptions: false,
+    },
+    {
+        _id: "order2",
+        user: "user2",
+        address: "addr2",
+        products: [
+            {
+                product: {
+                    _id: "prod2",
+                    name: "Hyderabadi Biryani",
+                },
+                quantity: 1,
+            },
+            {
+                product: {
+                    _id: "prod4",
+                    name: "Chicken Tikka",
+                },
+                quantity: 2,
+            },
+        ],
+        amount: 250 + 200 * 2,
+        orderStatus: "coompleted",
+        paymentStatus: "pending",
+        createdAt: new Date("2025-08-02T13:45:00Z"),
+        createdFromSubscriptions: true,
+    },
+    {
+        _id: "order3",
+        user: "user3",
+        address: "addr3",
+        products: [
+            {
+                product: {
+                    _id: "prod3",
+                    name: "Veg Thali",
+                },
+                quantity: 3,
+            },
+        ],
+        amount: 130 * 3,
+        orderStatus: "completed",
+        paymentStatus: "completed",
+        createdAt: new Date("2025-08-03T08:20:00Z"),
+        createdFromSubscriptions: false,
+    },
+    {
+        _id: "order4",
+        user: "user4",
+        address: "addr4",
+        products: [
+            {
+                product: {
+                    _id: "prod6",
+                    name: "Butter Chicken",
+                },
+                quantity: 1,
+            },
+            {
+                product: {
+                    _id: "prod8",
+                    name: "Fish Curry",
+                },
+                quantity: 1,
+            },
+        ],
+        amount: 220 + 240,
+        orderStatus: "completed",
+        paymentStatus: "completed",
+        createdAt: new Date("2025-08-04T17:30:00Z"),
+        createdFromSubscriptions: true,
+    },
+];
+
+
+export const pendingOrders = [
+    {
+        _id: "order1",
+        user: "user1",
+        address: "addr1",
+        products: [
+            {
+                product: {
+                    _id: "prod1",
+                    name: "Paneer Butter Masala",
+                },
+                quantity: 2,
+            },
+            {
+                product: {
+                    _id: "prod5",
+                    name: "Masala Dosa",
                 },
                 quantity: 1,
             },
@@ -414,11 +507,6 @@ export const Orders = [
                 product: {
                     _id: "prod2",
                     name: "Hyderabadi Biryani",
-                    description: "Authentic spicy biryani with chicken and saffron rice.",
-                    price: 250,
-                    category: "non-veg",
-                    restaurant: "rest2",
-                    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Hyderabadi_Chicken_Biryani.jpg",
                 },
                 quantity: 1,
             },
@@ -426,11 +514,6 @@ export const Orders = [
                 product: {
                     _id: "prod4",
                     name: "Chicken Tikka",
-                    description: "Grilled chicken pieces marinated in spices.",
-                    price: 200,
-                    category: "non-veg",
-                    restaurant: "rest4",
-                    imageUrl: "https://www.shutterstock.com/image-photo/deliciously-spiced-chicken-tikka-kabab-600nw-2495838045.jpg",
                 },
                 quantity: 2,
             },
@@ -450,18 +533,13 @@ export const Orders = [
                 product: {
                     _id: "prod3",
                     name: "Veg Thali",
-                    description: "Balanced meal with roti, sabzi, dal, rice, and sweet.",
-                    price: 130,
-                    category: "veg",
-                    restaurant: "rest3",
-                    imageUrl: "https://media.istockphoto.com/id/1158623408/photo/indian-hindu-veg-thali-food-platter-selective-focus.jpg?s=612x612&w=0&k=20&c=MOm3sfIfL22URV6juSCxpA3yfr4O63yJUV5vitufR7Y=",
                 },
                 quantity: 3,
             },
         ],
         amount: 130 * 3,
         orderStatus: "on the way",
-        paymentStatus: "completed",
+        paymentStatus: "picked",
         createdAt: new Date("2025-08-03T08:20:00Z"),
         createdFromSubscriptions: false,
     },
@@ -474,11 +552,6 @@ export const Orders = [
                 product: {
                     _id: "prod6",
                     name: "Butter Chicken",
-                    description: "Tender chicken in creamy tomato gravy.",
-                    price: 220,
-                    category: "non-veg",
-                    restaurant: "rest5",
-                    imageUrl: "https://t3.ftcdn.net/jpg/06/01/41/68/360_F_601416862_AfYdeefqT1kGqWTx1DZCsJZVzYIDFzPR.jpg",
                 },
                 quantity: 1,
             },
@@ -486,18 +559,13 @@ export const Orders = [
                 product: {
                     _id: "prod8",
                     name: "Fish Curry",
-                    description: "Spicy coastal-style fish curry with steamed rice.",
-                    price: 240,
-                    category: "non-veg",
-                    restaurant: "rest7",
-                    imageUrl: "https://media.istockphoto.com/id/1295772368/photo/macher-jhol-in-black-bowl-on-dark-slate-table-top-indian-cuisine-bengali-fish-curry-asian.jpg?s=612x612&w=0&k=20&c=3asIIURIgisLwXAijZnmNY3p2EWEZEHzByjk7ke9xZk=",
                 },
                 quantity: 1,
             },
         ],
         amount: 220 + 240,
         orderStatus: "picked",
-        paymentStatus: "completed",
+        paymentStatus: "on_the_way",
         createdAt: new Date("2025-08-04T17:30:00Z"),
         createdFromSubscriptions: true,
     },
