@@ -370,7 +370,7 @@ export const dummyCartItems = [
 
 
 
-export const Orders = [
+export const completedOrders = [
     {
         _id: "order1",
         user: "user1",
@@ -392,7 +392,7 @@ export const Orders = [
             },
         ],
         amount: 180 * 2 + 90,
-        orderStatus: "completed",
+        orderStatus: "cancelled",
         paymentStatus: "completed",
         createdAt: new Date("2025-08-01T10:00:00Z"),
         createdFromSubscriptions: false,
@@ -418,7 +418,7 @@ export const Orders = [
             },
         ],
         amount: 250 + 200 * 2,
-        orderStatus: "coompleted",
+        orderStatus: "completed",
         paymentStatus: "pending",
         createdAt: new Date("2025-08-02T13:45:00Z"),
         createdFromSubscriptions: true,

@@ -18,7 +18,7 @@ import { UPDATE_CART } from "@/lib/constants";
 import EmptyCard from "./EmptyCard";
 
 
-const CartSheet = () => {
+const CartSheet = ({ text }) => {
     const { cartItems, getCartTotal } = useAppStore();
     const [prevCartItems, setPrevCartItems] = useState(cartItems)
     const [isCartOpen, setIsCartOpen] = useState(false);
@@ -46,10 +46,13 @@ const CartSheet = () => {
     return (
         <Sheet open={isCartOpen} onOpenChange={handleCartToggle}>
             <SheetTrigger>
-                <div className="relative">
-                    <div className="absolute bg-primary bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white rounded-full size-5 top-[-5px] right-[-5px] text-sm flex items-center justify-center">{cartItems.length}</div>
-                    <ShoppingBagIcon className="text-primary size-8 max-sm:size-8" />
-                </div>
+                {!text ?
+                    <div className="relative">
+                        <div className="absolute bg-primary bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white rounded-full size-5 top-[-5px] right-[-5px] text-sm flex items-center justify-center">{cartItems.length}</div>
+                        <ShoppingBagIcon className="text-primary size-8 max-sm:size-8" />
+                    </div> :
+                    text
+                }
             </SheetTrigger>
             <SheetContent className="sm:min-w-lg w-full p-2">
                 <SheetHeader className="border-b">
