@@ -9,7 +9,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CompletedOrder from "./CompletedOrder";
 
-
 const Orders = () => {
     const { cartItems } = useAppStore()
     const [showOrderHistory, setShowOrderHistory] = useState(false);
@@ -32,7 +31,7 @@ const Orders = () => {
 
             <div className={`flex-1 grid gap-6 min-h-0 ${pendingOrders.length > 0 ? 'grid-cols-1 lg:grid-cols-4' : 'grid-cols-1'}`}>
                 {pendingOrders.length > 0 && (
-                    <section className={cn("lg:col-span-1 bg-white rounded-lg shadow-lg md:flex flex-col overflow-hidden max-md:w-full ", { "hidden": showOrderHistory })}>
+                    <section className={cn("lg:col-span-1 bg-white rounded-lg shadow-lg flex flex-col overflow-hidden", { "max-lg:hidden": showOrderHistory })}>
 
                         <div className="flex-shrink-0 flex items-center justify-between bg-yellow-100 p-4">
                             <div className="flex items-center gap-2">
@@ -46,17 +45,16 @@ const Orders = () => {
                             </span>
                         </div>
 
-
-                        {pendingOrders.length > 0 ?
-                            <div className="min-h-0 overflow-y-auto p-3 hide-scrollbar">
+                        {pendingOrders.length > 0 ? (
+                            <div className="flex-1 min-h-0 overflow-y-auto p-4 hide-scrollbar">
                                 <div className="space-y-3">
                                     {pendingOrders.map((order, index) => (
                                         <PendingOrder key={order._id || index} order={order} />
                                     ))}
                                 </div>
                             </div>
-                            :
-                            <div className="h-full flex flex-col items-center justify-center p-4 space-y-3">
+                        ) : (
+                            <div className="flex-1 flex flex-col items-center justify-center p-4 space-y-3">
                                 <div className="h-20 w-20 sm:h-24 sm:w-24 lg:h-32 lg:w-32 bg-yellow-100 flex items-center justify-center rounded-full">
                                     <BoxIcon className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-amber-500" />
                                 </div>
@@ -75,12 +73,11 @@ const Orders = () => {
                                     {cartItems.length > 0 ? <CartSheet text={"Complete Your Order"} /> : "Browse Menu"}
                                 </Button>
                             </div>
-                        }
+                        )}
                     </section>
                 )}
 
-
-                <section className={cn(`${pendingOrders.length > 0 ? 'lg:col-span-3' : 'col-span-4'} bg-white rounded-lg shadow-lg md:flex flex-col overflow-hidden max-md:w-full`, { "hidden": !showOrderHistory })}>
+                <section className={cn(`${pendingOrders.length > 0 ? 'lg:col-span-3' : 'col-span-4'} bg-white rounded-lg shadow-lg flex flex-col overflow-hidden`, { "max-lg:hidden": !showOrderHistory })}>
 
                     <div className="flex-shrink-0 flex items-center justify-between bg-yellow-100 p-4">
                         <div className="flex items-center gap-2">
@@ -94,9 +91,8 @@ const Orders = () => {
                         </span>
                     </div>
 
-
                     {completedOrders.length > 0 ? (
-                        <div className="h-full overflow-y-auto p-4 hide-scrollbar">
+                        <div className="flex-1 min-h-0 overflow-y-auto p-4 hide-scrollbar">
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                 {completedOrders.map((order, index) => (
                                     <CompletedOrder key={order._id || index} order={order} />
@@ -104,7 +100,7 @@ const Orders = () => {
                             </div>
                         </div>
                     ) : (
-                        <div className="h-full flex flex-col items-center justify-center p-4 space-y-3">
+                        <div className="flex-1 flex flex-col items-center justify-center p-4 space-y-3">
                             <div className="h-20 w-20 sm:h-24 sm:w-24 lg:h-32 lg:w-32 bg-yellow-100 flex items-center justify-center rounded-full">
                                 <BoxIcon className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-amber-500" />
                             </div>

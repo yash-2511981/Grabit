@@ -374,7 +374,7 @@ export const completedOrders = [
     {
         _id: "order1",
         user: "user1",
-        address: "addr1",
+        address: "OO1/B yashwant galaxy, Y K nagar,Virar west,ganpatimandir road",
         products: [
             {
                 product: {
