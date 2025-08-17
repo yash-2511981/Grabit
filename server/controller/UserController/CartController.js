@@ -5,20 +5,16 @@ export const getCartItems = async (req, res) => {
     const { id } = req.data
 
     try {
-        const user = await UserModel.findById(id)
+        const user = await UserModel.findById(id).populate({
+            path: "cart.product",
+            module: "product"
+        })
 
         if (!user) {
             return res.status(401).send("Unauthorized request")
         }
 
-        const { cart } = user.toObject()
-
-        const cartItems = await Promise.all(
-            cart.map(async (item) => {
-                const product = await ProductModel.findById(item.product)
-                return { ...product.toObject(), quantity: item.quantity }
-            })
-        )
+        const cartItems = user.cart.map((item) => ({ ...item.product.toObject(), quantity: item.quantity }))
 
         res.status(200).json({ cartItems })
     } catch (error) {

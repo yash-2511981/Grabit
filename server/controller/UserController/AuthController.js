@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt'
 import { createToken, validateTill } from "../../lib/utils.js"
 import jwt from "jsonwebtoken"
 import { BlackListTokenModel } from "../../model/BalckListTokenModel.js"
+import { AddressModel } from "../../model/AddressModel.js"
 
 //user registration end point
 //step 1 : check there is no validation errors present
@@ -84,12 +85,14 @@ export const signIn = async (req, res) => {
                 sameSite: "None"
             })
 
-            const { password, ...userDet } = user.toObject();
+            const addresses = AddressModel.del
+
+            const { password, cart, address, ...userDet } = user.toObject();
 
             res.status(200).json({
                 user: {
                     ...userDet
-                }
+                },
             })
         } else {
             return res.status(401).send("incorrect combination of username/password")
@@ -123,7 +126,7 @@ export const signOut = async (req, res) => {
 
         res.clearCookie("jwt", {
             httpOnly: true,
-        sameSite: "None",
+            sameSite: "None",
             secure: true,
         })
 
