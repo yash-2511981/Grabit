@@ -3,7 +3,7 @@ import { formatDate } from '@/lib/utils';
 import { Calendar, IndianRupee, MapPin, Package } from 'lucide-react';
 import React from 'react'
 
-const CompletedOrder = ({ order }) => {
+const CompletedOrder = ({ order, setOrder, showOrder }) => {
 
     const getOrderStatusColor = (status) => {
         switch (status?.toLowerCase()) {
@@ -19,8 +19,13 @@ const CompletedOrder = ({ order }) => {
     const totalItems = order.products?.length || 0;
     const firstProductName = order.products?.[0]?.product?.name || 'No items';
     const hasMoreItems = order.products?.length > 1;
+    const handleClick = () => {
+        setOrder(order)
+        showOrder(true)
+    }
+
     return (
-        <div className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-200 cursor-pointer">
+        <div className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-200 cursor-pointer" onClick={handleClick}>
             <div className='flex justify-between items-start mb-2'>
                 <span className={`px-3 py-1 rounded-full text-xs font-medium ${getOrderStatusColor(order.orderStatus)}`}>
                     {order.orderStatus}
@@ -71,13 +76,6 @@ const CompletedOrder = ({ order }) => {
                 </div>
             </div>
 
-            <div className="pt-3 border-t border-gray-100">
-                <div className="flex gap-2">
-                    <Button className="flex-1" variant="primary">
-                        View Details
-                    </Button>
-                </div>
-            </div>
         </div>
     )
 }

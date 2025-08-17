@@ -1,7 +1,7 @@
 import React from 'react';
 import { Clock, Package, User, DollarSign, CreditCard, IndianRupeeIcon, IndianRupee, Eye, X, Calendar } from 'lucide-react';
 import { Button } from '../../components/ui/button';
-const PendingOrder = ({ order }) => {
+const PendingOrder = ({ order, showOrder, setOrder }) => {
 
     // Helper function to get order status color (matching Grabit theme)
     const getOrderStatusColor = (status) => {
@@ -38,8 +38,13 @@ const PendingOrder = ({ order }) => {
     const firstProductName = order.products?.[0]?.product?.name || 'No items';
     const hasMoreItems = order.products?.length > 1;
 
+    const handleClick = () => {
+        setOrder(order)
+        showOrder(true)
+    }
+
     return (
-        <div className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-200 cursor-pointer">
+        <div className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg transition-all duration-200 cursor-pointer" onClick={handleClick}>
             <div className='flex justify-between items-start mb-2'>
                 <span className={`px-3 py-1 rounded-full text-xs font-medium ${getOrderStatusColor(order.orderStatus)}`}>
                     {order.orderStatus || 'Pending'}
@@ -85,20 +90,6 @@ const PendingOrder = ({ order }) => {
                 <span className="text-xs text-gray-500">
                     30 - 35 Min
                 </span>
-            </div>
-
-
-            <div className="pt-3 border-t border-gray-100">
-                <div className="flex gap-2">
-                    <Button className="flex-1" variant="primary">
-                        View Details
-                    </Button>
-                    {order.orderStatus !== 'completed' && (
-                        <Button className="flex-1 bg-gray-100 text-gray-700 border border-gray-300 hover:bg-gray-200" variant="outline">
-                            Cancel
-                        </Button>
-                    )}
-                </div>
             </div>
         </div>
     );
