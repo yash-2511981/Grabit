@@ -35,7 +35,7 @@ const Home = () => {
   }, [vegMode, category])
 
   return (
-    <div className='w-full max-w-7xl mx-auto h-[calc(100vh-150px)] flex flex-col bg-gray-50'>
+    <div className='w-full max-w-7xl mx-auto h-[calc(100vh-140px)] p-4 flex flex-col  flex-1'>
 
       {/* Fixed Header - won't scroll */}
       <div className='h-auto w-full px-4 grid grid-cols-[1fr_auto] max-sm:grid-cols-1 gap-2 items-center flex-shrink-0 border-b max-sm:border-none bg-white/80 backdrop-blur-sm p-2'>

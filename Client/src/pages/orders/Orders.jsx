@@ -8,14 +8,20 @@ import { BoxIcon, Clock4, PackageCheck } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CompletedOrder from "./CompletedOrder";
+import OrderModal from "./OrderModal";
 
 const Orders = () => {
     const { cartItems } = useAppStore()
     const [showOrderHistory, setShowOrderHistory] = useState(false);
+    const [showOrderDetails, setShoOrderDetails] = useState(false)
+    const [order, setOrder] = useState({});
     const navigate = useNavigate();
 
     return (
         <div className="min-h-[calc(100vh-150px)] w-full max-w-7xl mx-auto p-4 flex flex-col">
+            {
+                showOrderDetails && <OrderModal order={order} showModal={setShoOrderDetails} setOrder={setOrder} />
+            }
 
             <div className="flex-shrink-0 mb-4 flex justify-between">
                 <div>
@@ -49,7 +55,7 @@ const Orders = () => {
                             <div className="flex-1 min-h-0 overflow-y-auto p-4 hide-scrollbar">
                                 <div className="space-y-3">
                                     {pendingOrders.map((order, index) => (
-                                        <PendingOrder key={order._id || index} order={order} />
+                                        <PendingOrder key={order._id || index} order={order} showOrder={setShoOrderDetails} setOrder={setOrder} />
                                     ))}
                                 </div>
                             </div>
@@ -95,7 +101,7 @@ const Orders = () => {
                         <div className="flex-1 min-h-0 overflow-y-auto p-4 hide-scrollbar">
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                 {completedOrders.map((order, index) => (
-                                    <CompletedOrder key={order._id || index} order={order} />
+                                    <CompletedOrder key={order._id || index} order={order} showOrder={setShoOrderDetails} setOrder={setOrder} />
                                 ))}
                             </div>
                         </div>
