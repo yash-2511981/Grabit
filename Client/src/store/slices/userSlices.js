@@ -20,11 +20,8 @@ const userSlices = (set, get) => ({
         addresses: [...state.addresses, address]
     })),
     addCartItem: (item) => {
-        console.log(item)
         const prevCart = get().cartItems
-        console.log(prevCart)
         const index = prevCart.findIndex(prodcut => prodcut._id === item._id)
-        console.log(index)
 
         if (index !== -1) {
             const updatedCart = [...prevCart]
@@ -77,6 +74,14 @@ const userSlices = (set, get) => ({
         const cartItems = get().cartItems;
         return cartItems.reduce((count, item) => count + item.quantity, 0);
     },
+    productIsInCart: (id) => {
+        const products = get().cartItems
+        const index = products.findIndex(item => item._id === id)
+        if (index !== -1)
+            return true;
+        else
+            return false;
+    }
 });
 
 export default userSlices;
