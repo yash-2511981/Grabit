@@ -16,13 +16,17 @@ import { useState } from "react";
 import useApi from "@/hooks/useApi";
 import { UPDATE_CART } from "@/lib/constants";
 import EmptyCard from "./EmptyCard";
+import { useNavigate } from "react-router-dom";
 
 
 const CartSheet = ({ text }) => {
-    const { cartItems, getCartTotal } = useAppStore();
+    const { cartItems, getCartTotal, increaseCartItemQuantity, decreaseCartItemQuantity, removeFromCart, setCheckoutData } = useAppStore();
     const [prevCartItems, setPrevCartItems] = useState(cartItems)
     const [isCartOpen, setIsCartOpen] = useState(false);
     const { patch } = useApi()
+    const navigate = useNavigate()
+
+    const total = getCartTotal();
 
     const handleCartToggle = async (open) => {
         if (!open && isCartOpen) {
@@ -43,6 +47,10 @@ const CartSheet = ({ text }) => {
         setIsCartOpen(open)
     }
 
+    const handleCheckOut = async () => {
+        setCheckoutData(cartItems, total, true)
+        navigate("/checkout")
+    }
     return (
         <Sheet open={isCartOpen} onOpenChange={handleCartToggle}>
             <SheetTrigger>
@@ -70,7 +78,11 @@ const CartSheet = ({ text }) => {
                         <div className="h-full overflow-y-auto hide-scrollbar flex-col px-2">
                             <div className="gap-3 flex flex-col">
                                 {cartItems.map((item, index) => {
-                                    return <CartItem key={index || item._id} item={item} />
+                                    return <CartItem key={index || item._id} item={item}
+                                        increase={increaseCartItemQuantity}
+                                        decrease={decreaseCartItemQuantity}
+                                        remove={removeFromCart}
+                                    />
                                 })
                                 }
                             </div>
@@ -80,8 +92,8 @@ const CartSheet = ({ text }) => {
                 <SheetFooter >
                     <SheetClose>
                         <div className="border-b-2 py-2">
-                            {cartItems.length > 0 && <Button className="w-full" >Proceed To Checkout  &nbsp; {getCartTotal()}</Button>}
-                            {cartItems.length === 0 && <Button className="w-full" >Add Products</Button>}
+                            {cartItems.length > 0 && <Button className="w-full" onClick={handleCheckOut} >Proceed To Checkout  &nbsp; {total}</Button>}
+                            {cartItems.length === 0 && <Button className="w-full" onClick={() => navigate("/home")} >Add Products</Button>}
                         </div>
                     </SheetClose>
                     {cartItems.length > 0 ?

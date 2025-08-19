@@ -10,6 +10,7 @@ import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
 import Profile from "./pages/Profile/Profile"
 import Orders from "./pages/orders/Orders"
+import Checkout from "./pages/checkout/Chekout"
 
 const AuhtRoutes = ({ children }) => {
   const { userInfo } = useAppStore();
@@ -93,6 +94,12 @@ function App() {
             <Route path="/orders" element={
               <PrivateRoutes>
                 <Orders />
+              </PrivateRoutes>
+            } />
+
+            <Route path="/checkout" element={
+              <PrivateRoutes>
+                <Checkout />
               </PrivateRoutes>
             } />
           </Routes>
