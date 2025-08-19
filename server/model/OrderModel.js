@@ -15,7 +15,6 @@ const orderSchema = new Schema({
     address: {
         type: Schema.Types.ObjectId,
         ref: "address",
-        required: true,
     },
     amount: {
         type: Number,
@@ -23,18 +22,20 @@ const orderSchema = new Schema({
     },
     orderStatus: {
         type: String,
-        enum: ["confirm", "packed", "picked", "on the way", "delivered"],
-        default: "confirm",
+        enum: ["confirm", "packed", "picked", "on the way", "delivered", "pending"],
+        default: "pendung",
     },
     paymentStatus: {
         type: String,
         enum: ["pending", "completed", "failed"],
         default: "pending",
     },
+    paymentMode: { type: String, enum: ["cod", "online"] },
     createdAt: {
         type: Date,
         default: Date.now,
     },
+    deliveryCharge: { type: Number, default: 40 },
     createdFromSubscriptions: { type: Boolean, default: false }
 }, { timestamps: true });
 

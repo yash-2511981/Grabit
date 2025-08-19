@@ -10,7 +10,8 @@ const restaurantSchema = new Schema({
   password: { type: String, required: true },
   products: [{ type: Schema.Types.ObjectId, ref: "product" }],
   imageUrl: { type: String },
-  status: { type: String, enum: ["open", "close"] }
+  status: { type: String, enum: ["open", "close"] },
+  rating: { type: Number }
 }, { timestamps: true });
 
 export const RestaurantModel = mongoose.model("restaurant", restaurantSchema);
