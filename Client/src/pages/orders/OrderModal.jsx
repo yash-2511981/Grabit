@@ -55,7 +55,7 @@ const OrderModal = ({ order, setOrder, showModal }) => {
 
                 <Card className="bg-white">
                     {/* Header */}
-                    <CardHeader className="pb-4">
+                    <CardHeader className="pb-2">
                         <div className="flex items-start justify-between">
                             <div>
                                 <CardTitle className="text-lg text-gray-900 font-semibold">
@@ -68,7 +68,7 @@ const OrderModal = ({ order, setOrder, showModal }) => {
                         </div>
 
                         {/* Payment Status */}
-                        <div className="flex gap-2 mt-3">
+                        <div className="flex mt-2">
                             {order.orderStatus && (
                                 <span className="px-3 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
                                     {order.orderStatus}
@@ -77,14 +77,13 @@ const OrderModal = ({ order, setOrder, showModal }) => {
                         </div>
                     </CardHeader>
 
-                    <CardContent className="space-y-4">
+                    <CardContent className="space-y-3">
                         {/* Order Items */}
                         <div>
-                            <h3 className="flex items-center gap-2 text-base font-semibold text-gray-900 mb-3">
-                                <Package className="w-4 h-4 text-amber-600" />
+                            <h3 className="flex items-center gap-2 text-base font-semibold text-gray-900 mb-2">
                                 Order Items
                             </h3>
-                            <div className="space-y-3">
+                            <div className="space-y-2 px-4">
                                 {products.map((product, index) => (
                                     <div key={index} className="flex items-center justify-between py-2 border-b border-gray-200 last:border-b-0">
                                         <div>
@@ -101,10 +100,9 @@ const OrderModal = ({ order, setOrder, showModal }) => {
                             </div>
                         </div>
 
-                        {/* Order Summary */}
                         <div>
-                            <h3 className="text-base font-semibold text-gray-900 mb-3">Order Summary</h3>
-                            <div className="bg-amber-50 rounded-lg p-4 space-y-2 border border-amber-200">
+                            <h3 className="text-base font-semibold text-gray-900 mb-2">Order Summary</h3>
+                            <div className="bg-amber-50 rounded-lg p-4 space-y-2 border border-amber-200 px-4">
                                 <div className="flex justify-between text-sm text-gray-700">
                                     <span>Item Total:</span>
                                     <span className="font-medium">₹ {itemTotal}</span>
@@ -152,7 +150,7 @@ const OrderModal = ({ order, setOrder, showModal }) => {
 
                         {/* Delete Button at Bottom */}
                         {(order.orderStatus !== "completed" && order.orderStatus !== "cancelled") && (
-                            <div className="pt-4 border-t border-gray-300">
+                            <div className="pt-2 border-t border-gray-300">
                                 <button
                                     onClick={handleDeleteOrder}
                                     className="w-full flex items-center justify-center gap-2 bg-red-100 hover:bg-red-200 text-red-700 hover:text-red-800 py-3 px-4 rounded-lg font-medium transition-colors duration-200 border border-red-300"

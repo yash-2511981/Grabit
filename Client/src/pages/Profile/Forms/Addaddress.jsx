@@ -30,7 +30,7 @@ const AddaddressForm = ({ setShowModal }) => {
             setShowModal(false)
             const result = await post(ADD_ADDRESS, formValue, "Address Added Successfully")
             if (result.success) {
-                addAddress(result.data)
+                addAddress(result.data.address)
             }
         } catch (error) {
             console.log(error)
@@ -40,9 +40,9 @@ const AddaddressForm = ({ setShowModal }) => {
     return (
         <div className='fixed inset-0 flex items-center justify-center backdrop-blur-sm bg-black/20 z-50'>
             <div className='p-6 relative rounded-2xl shadow-2xl animate-in fade-in-0 zoom-in-95 duration-300'>
-                <X 
-                    onClick={() => setShowModal(false)} 
-                    className='absolute -top-2 -right-2 bg-amber-500 hover:bg-amber-600 text-white rounded-full sm:size-10 size-8 transition-all duration-200 p-2 cursor-pointer hover:scale-110 shadow-lg z-10' 
+                <X
+                    onClick={() => setShowModal(false)}
+                    className='absolute -top-2 -right-2 bg-amber-500 hover:bg-amber-600 text-white rounded-full sm:size-10 size-8 transition-all duration-200 p-2 cursor-pointer hover:scale-110 shadow-lg z-10'
                 />
                 <Card className="p-6 min-w-md w-full bg-white/95 backdrop-blur-sm border-0 shadow-xl">
                     <CardHeader className="pb-4">
@@ -57,60 +57,60 @@ const AddaddressForm = ({ setShowModal }) => {
                         <form>
                             <div className='flex flex-col gap-4'>
                                 <div className='space-y-1'>
-                                    <Input 
-                                        id="roomNo" 
-                                        name="roomNo" 
-                                        placeholder="Room No" 
-                                        onChange={handleInputChange} 
+                                    <Input
+                                        id="roomNo"
+                                        name="roomNo"
+                                        placeholder="Room No"
+                                        onChange={handleInputChange}
                                         value={formValue.roomNo}
                                         className="h-12 rounded-lg border-gray-200 focus:border-amber-500 focus:ring-amber-500/20 transition-all duration-200 placeholder:text-gray-400"
                                     />
                                 </div>
                                 <div className='space-y-1'>
-                                    <Input 
-                                        id="buildingName" 
-                                        name="buildingName" 
-                                        placeholder="Building Name/ No." 
-                                        onChange={handleInputChange} 
+                                    <Input
+                                        id="buildingName"
+                                        name="buildingName"
+                                        placeholder="Building Name/ No."
+                                        onChange={handleInputChange}
                                         value={formValue.buildingName}
                                         className="h-12 rounded-lg border-gray-200 focus:border-amber-500 focus:ring-amber-500/20 transition-all duration-200 placeholder:text-gray-400"
                                     />
                                 </div>
                                 <div className='space-y-1'>
-                                    <Input 
-                                        id="area" 
-                                        name="area" 
-                                        type="text" 
-                                        placeholder="Area" 
-                                        onChange={handleInputChange} 
+                                    <Input
+                                        id="area"
+                                        name="area"
+                                        type="text"
+                                        placeholder="Area"
+                                        onChange={handleInputChange}
                                         value={formValue.area}
                                         className="h-12 rounded-lg border-gray-200 focus:border-amber-500 focus:ring-amber-500/20 transition-all duration-200 placeholder:text-gray-400"
                                     />
                                 </div>
                                 <div className='space-y-1'>
-                                    <Input 
-                                        id="landmark" 
-                                        name="landmark" 
-                                        type="text" 
-                                        placeholder="Landmark" 
-                                        onChange={handleInputChange} 
+                                    <Input
+                                        id="landmark"
+                                        name="landmark"
+                                        type="text"
+                                        placeholder="Landmark"
+                                        onChange={handleInputChange}
                                         value={formValue.landmark}
                                         className="h-12 rounded-lg border-gray-200 focus:border-amber-500 focus:ring-amber-500/20 transition-all duration-200 placeholder:text-gray-400"
                                     />
                                 </div>
                                 <div className='space-y-1'>
-                                    <Input 
-                                        id="pincode" 
-                                        name="pincode" 
-                                        type="number" 
-                                        placeholder="Pincode" 
-                                        onChange={handleInputChange} 
+                                    <Input
+                                        id="pincode"
+                                        name="pincode"
+                                        type="number"
+                                        placeholder="Pincode"
+                                        onChange={handleInputChange}
                                         value={formValue.pincode}
                                         className="h-12 rounded-lg border-gray-200 focus:border-amber-500 focus:ring-amber-500/20 transition-all duration-200 placeholder:text-gray-400"
                                     />
                                 </div>
-                                <Button 
-                                    type="button" 
+                                <Button
+                                    type="button"
                                     onClick={handleAddAddress}
                                     className="h-12 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] mt-4"
                                 >

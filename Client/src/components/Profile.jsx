@@ -29,7 +29,7 @@ export function Profile() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <div className="flex items-center justify-center bg-primary hover:bg-yellow-600 hover:text-white text-white font-semibold rounded-full text-2xl h-10 w-10">
+                <div className="flex items-center justify-center bg-primary hover:bg-yellow-600 hover:text-white text-white font-semibold rounded-full text-2xl size-10">
                     {userInfo?.firstName?.charAt(0).toUpperCase() ?? "U"}
                 </div>
             </DropdownMenuTrigger>
