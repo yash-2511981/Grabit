@@ -121,50 +121,6 @@ export const addAddress = async (req, res) => {
     }
 }
 
-export const getProducts = async (req, res) => {
-    const { id } = req.data;
-    try {
-        const user = await UserModel.findById(id).select("pincode")
-
-        const restaurants = await RestaurantModel.find({ pincode: user.pincode, status: "open" }).select("_id")
-        if (restaurants.length === 0) {
-            return res.status(200).send("There is no Restaurant near you")
-        }
-
-        const restaurantIds = restaurants.map(r => r._id)
-
-        const products = await ProductModel.find({ restaurant: { $in: restaurantIds } })
-
-        res.status(200).json({ products })
-
-    } catch (error) {
-        console.log(error)
-        res.status(500).send("Server Error.Try again later")
-    }
-}
-
-export const getRestaurants = async (req, res) => {
-    const { id } = req.data;
-    const { vegMode } = req.body;
-    try {
-        const user = await UserModel.findById(id).select("pincode")
-        if (!user) {
-            return res.status(400).send("Server Error.Try again later.")
-        }
-
-        let restaurants;
-        if (vegMode) {
-            restaurants = await RestaurantModel.find({ pincode: user.pincode, status: "open", category: "veg" })
-        } else {
-            restaurants = await RestaurantModel.find({ pincode: user.pincode, status: "open" })
-        }
-
-        res.status(200).json({ restaurants })
-    } catch (error) {
-        console.log(error)
-        return res.status(500).send("Server Error. Try again later")
-    }
-}
 
 export const getDisplayItems = async (req, res) => {
     const { id } = req.data;
@@ -202,7 +158,7 @@ export const getDisplayItems = async (req, res) => {
             case "dish":
                 const restaurantIds = restaurants.map(r => r._id)
 
-                data = await ProductModel.find({ restaurant: { $in: restaurantIds } }).lean();
+                data = await ProductModel.find({ restaurant: { $in: restaurantIds } }).populate('restaurant',"name avgDeliveryTime rating").lean();
                 break;
 
             case "restaurants":
