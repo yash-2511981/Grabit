@@ -3,6 +3,8 @@ const checkoutSlices = (set, get) => ({
     displayProducts: [],     // detailed info to display on ui
     orderAmount: 0,
     deliveryCharge: 20,
+    platFormFee: 1.5,
+    gst: 0, //applying 5% gst on on product price
     orderAddress: null,
     paymentMode: "online",
     isOrderFromCart: false,
@@ -19,6 +21,8 @@ const checkoutSlices = (set, get) => ({
             orderAmount: amount,
             isOrderFromCart
         })
+
+        get().setOrderAmount()
     },
 
     increaseQuantity: (id) => {
@@ -57,7 +61,8 @@ const checkoutSlices = (set, get) => ({
     setOrderAmount: () => {
         const products = get().displayProducts;
         const total = products.reduce((total, item) => total + (item.price * item.quantity), 0)
-        set({ orderAmount: total })
+        const gst = Math.round(total * 0.05)
+        set({ orderAmount: total, gst })
     }
 })
 
