@@ -1,7 +1,9 @@
+
 const userSlices = (set, get) => ({
     userInfo: null,
     addresses: [],
-    orders: [],
+    completedOrders: [],
+    pendingOrders: [],
     products: [],
     cartItems: [],
     restaurants: [],
@@ -11,6 +13,7 @@ const userSlices = (set, get) => ({
     setCategory: (category) => set({ category }),
     setVegMode: (vegMode) => set({ vegMode }),
     setUserInfo: (userInfo) => set({ userInfo }),
+    setOrdersDetails: (completedOrders, pendingOrders) => set({ completedOrders, pendingOrders }),
     setAddresses: (addresses) => set({ addresses }),
     setCartItems: (cartItems) => set({ cartItems }),
     setProducts: (products) => set({ products }),
@@ -81,6 +84,11 @@ const userSlices = (set, get) => ({
             return true;
         else
             return false;
+    },
+    updatePendingOrders: (order) => {
+        const prevOrders = get().pendingOrders
+        const newOrders = [...prevOrders, order]
+        set({ pendingOrders: newOrders })
     }
 });
 
