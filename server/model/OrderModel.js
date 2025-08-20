@@ -6,24 +6,22 @@ const orderSchema = new Schema({
         ref: "user",
         required: true,
     },
+    deliveryBoy: { type: Schema.Types.ObjectId },
     products: [
         {
             product: { type: Schema.Types.ObjectId, ref: "product", required: true },
             quantity: { type: Number, required: true, default: 1 },
         },
     ],
-    address: {
-        type: Schema.Types.ObjectId,
-        ref: "address",
-    },
+    address: { type: String },
     amount: {
         type: Number,
         required: true,
     },
     orderStatus: {
         type: String,
-        enum: ["confirm", "packed", "picked", "on the way", "delivered", "pending"],
-        default: "pendung",
+        enum: ["confirm", "packed", "picked", "on the way", "delivered", "pending", "cancled"],
+        default: "pending",
     },
     paymentStatus: {
         type: String,
@@ -36,6 +34,8 @@ const orderSchema = new Schema({
         default: Date.now,
     },
     deliveryCharge: { type: Number, default: 40 },
+    gst: { type: Number, required: true },
+    platFormFee: { type: Number, required: true },
     createdFromSubscriptions: { type: Boolean, default: false }
 }, { timestamps: true });
 
