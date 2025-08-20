@@ -13,6 +13,7 @@ const Home = () => {
   const { products, vegMode, category, setProducts, setRestaurants, setSubscriptions, restaurants } = useAppStore()
   const { post } = useApi()
   const [isEmpty, setIsEmpty] = useState(false);
+  const [openProduct, setOpenProduct] = useState(null);
 
   useEffect(() => {
     const getDisplayData = async () => {
@@ -56,7 +57,7 @@ const Home = () => {
             {category === "dish" &&
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {products.map((product, index) => (
-                  <Product key={product._id || index} product={product} />
+                  <Product key={product._id || index} product={product} open={openProduct === product._id} setOpen={setOpenProduct} />
                 ))}
               </div>}
             {category === "restaurants" &&

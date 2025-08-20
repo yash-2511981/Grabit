@@ -3,7 +3,7 @@ import Loading from "./components/ui/loading"
 import Auth from "./pages/Auth/Auth"
 import { useAppStore } from "./store/store"
 import useApi from "./hooks/useApi"
-import { GET_CART_ITEMS, GET_PRODUCTS, GET_RESTAURANTS, GET_USER_INFO } from "./lib/constants"
+import { GET_CART_ITEMS, GET_ORDER_DETAILS, GET_USER_INFO } from "./lib/constants"
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom"
 import Home from "./pages/Home/Home"
 import Navbar from "./components/Navbar"
@@ -38,7 +38,7 @@ const Layout = ({ children }) => {
 
 function App() {
 
-  const { loading, setUserInfo, setLoading, setCartItems, setAddresses } = useAppStore()
+  const { loading, setUserInfo, setLoading, setCartItems, setAddresses, setOrdersDetails } = useAppStore()
   const { get } = useApi()
 
 
@@ -50,6 +50,7 @@ function App() {
 
       const result = await get(GET_USER_INFO)
       const cartItems = await get(GET_CART_ITEMS)
+      const orders = await get(GET_ORDER_DETAILS)
 
       if (cartItems.success) {
         setCartItems(cartItems.data.cartItems)
@@ -58,6 +59,10 @@ function App() {
       if (result.success) {
         setUserInfo(result.data.user)
         setAddresses(result.data?.address)
+      }
+
+      if (orders.success) {
+        setOrdersDetails(orders.data.completedOrders, orders.data.pendingOrders)
       }
 
       setLoading(false)
