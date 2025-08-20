@@ -1,9 +1,12 @@
 import Address from "@/components/Address";
 import CartItem from "@/components/CartItem";
 import { Button } from "@/components/ui/button";
+import useApi from "@/hooks/useApi";
+import { PLACE_ORDER } from "@/lib/constants";
 import { useAppStore } from "@/store/store";
 import { BadgeIndianRupee, Clock, ShieldCheck } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Checkout = () => {
   const {
@@ -17,9 +20,31 @@ const Checkout = () => {
     paymentMode,
     setPaymentMode,
     addresses,
+    orderProducts,
+    orderAddress,
+    isOrderFromCart,
+    platFormFee,
+    gst
   } = useAppStore();
 
-  const [selectedAddress, setSelectedAddress] = useState("");
+  const [selectedAddress, setSelectedAddress] = useState(null);
+
+  const { post } = useApi()
+  const { updatePendingOrders, clearCart } = useAppStore()
+  const navigate = useNavigate()
+  const amount = orderAmount + deliveryCharge + platFormFee + gst
+
+  const placeOrder = async () => {
+    if (selectedAddress === null) return;
+    const result = await post(PLACE_ORDER,
+      { amount, deliveryCharge, paymentMode, orderProducts, orderAddress, isOrderFromCart, platFormFee, gst })
+    if (result.success) {
+      updatePendingOrders(result.data.order)
+      navigate("/orders")
+      clearCart()
+    }
+  }
+
 
   return (
     <div className="h-[calc(100vh-100px)] sm:h-[calc(100vh-140px)] max-w-7xl w-full mx-auto flex flex-col">
@@ -157,23 +182,23 @@ const Checkout = () => {
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Platform Fee</span>
-                    <span className="font-medium">₹5</span>
+                    <span className="font-medium">₹{platFormFee}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">GST (5%)</span>
-                    <span className="font-medium">₹{Math.round((orderAmount + deliveryCharge) * 0.05)}</span>
+                    <span className="font-medium">₹{gst}</span>
                   </div>
 
                   <div className="border-t pt-3 flex justify-between font-semibold text-lg">
                     <span>Total Amount</span>
                     <span className="text-orange-600">
-                      ₹{orderAmount + deliveryCharge + 5 + Math.round((orderAmount + deliveryCharge) * 0.05)}
+                      ₹{orderAmount + deliveryCharge + platFormFee + Math.round((orderAmount) * 0.05)}
                     </span>
                   </div>
                 </div>
 
-                <Button variant="primary" className="w-full my-4">
-                  Place Order • ₹{orderAmount + deliveryCharge + 5 + Math.round((orderAmount + deliveryCharge) * 0.05)}
+                <Button variant="primary" className="w-full my-4" onClick={placeOrder} disabled={selectedAddress === null}>
+                  Place Order • ₹{amount}
                 </Button>
 
 
