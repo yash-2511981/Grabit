@@ -9,3 +9,25 @@ export const getAllProducts = async (req, res) => {
         return res.status(500).json({ error: "Internal server error,Try again later" })
     }
 }
+
+export const updateOrderStatus = async (req, res) => {
+    const { orderId, orderStatus } = req.body
+    try {
+        const order = await OrderModel.findByIdAndUpdate(orderId, { orderStatus })
+        res.status(200).send(`Order ${orderStatus}`)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Server error.Try again later")
+    }
+}
+
+export const updatePaymentStatus = async (req, res) => {
+    const { orderId, paymentStatus } = req.body
+    try {
+        await OrderModel.findByIdAndUpdate(orderId, { orderStatus })
+        res.status(200).send(`Payment status updated to ${paymentStatus}`)
+    } catch (error) {
+        console.log(error)
+        res.status(500).send("Server error.Try again later")
+    }
+}
