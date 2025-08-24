@@ -17,7 +17,7 @@ const Orders = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-[calc(100vh-150px)] w-full max-w-7xl mx-auto p-4 flex flex-col">
+        <div className="max-h-[calc(100vh-80px)] w-full max-w-7xl mx-auto p-4 flex flex-col">
             {
                 showOrderDetails && <OrderModal order={order} showModal={setShoOrderDetails} setOrder={setOrder} />
             }

@@ -15,6 +15,7 @@ const Home = () => {
   const [isEmpty, setIsEmpty] = useState(false);
   const [openProduct, setOpenProduct] = useState(null);
 
+
   useEffect(() => {
     const getDisplayData = async () => {
       const result = await post(GET_DISPLAY_ITEMS, { vegMode, category })
@@ -36,7 +37,7 @@ const Home = () => {
   }, [vegMode, category])
 
   return (
-    <div className='w-full max-w-7xl mx-auto h-[calc(100vh-100px)] sm:h-[calc(100vh-140px)] p-4 flex flex-col'>
+    <div className='w-full max-w-7xl mx-auto h-[calc(100vh-80px)] p-4 flex flex-col'>
 
 
       <div className='h-auto w-full px-4 grid grid-cols-[1fr_auto] max-sm:grid-cols-1 gap-2 items-center flex-shrink-0 border-b max-sm:border-none bg-white/80 backdrop-blur-sm p-2'>
@@ -52,12 +53,18 @@ const Home = () => {
 
       <div className="flex-1 min-h-0 overflow-hidden">
         <div className="h-full overflow-y-auto hide-scrollbar">
-          <div className="p-4">
+          <div className="p-4 pb-">
             {isEmpty && <EmptyCard text="Opps! There is no restaurant near you" />}
             {category === "dish" &&
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 ">
                 {products.map((product, index) => (
-                  <Product key={product._id || index} product={product} open={openProduct === product._id} setOpen={setOpenProduct} />
+                  <Product
+                    key={product._id || index}
+                    product={product}
+                    open={openProduct === product._id}
+                    setOpen={setOpenProduct}
+                    index={index}
+                  />
                 ))}
               </div>}
             {category === "restaurants" &&
