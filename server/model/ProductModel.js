@@ -7,6 +7,8 @@ const productSchema = new Schema({
   category: { type: String, enum: ["veg", "non-veg"], default: "Both" },
   restaurant: { type: Schema.Types.ObjectId, ref: "restaurant", required: true },
   imageUrl: { type: String, required: true },
+  ratingCount: { type: Number, default: 0 },
+  rating: { type: Number, default: 0 },
 }, { timestamps: true });
 
 export const ProductModel = mongoose.model("product", productSchema);
