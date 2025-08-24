@@ -7,8 +7,8 @@ const GrabitLanding = () => {
     const [showAuthForm, setShowAuthForm] = useState(false);
 
     return (
-        <>
-            <div className="min-h-screen w-full bg-gradient-to-br from-yellow-100 via-orange-50 to-yellow-200 relative overflow-hidden">
+        <div className="min-h-screen">
+            <div className="min-h-screen w-full bg-gradient-to-br from-yellow-100 via-orange-50 to-yellow-200 relative overflow-hidden pb-8">
                 <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-10 left-10 w-20 h-20 bg-yellow-300 rounded-full"></div>
                     <div className="absolute top-40 right-20 w-16 h-16 bg-orange-300 rounded-full"></div>
@@ -24,17 +24,17 @@ const GrabitLanding = () => {
                     Sign In / Sign Up
                 </Button>}
 
-                {/* Header */}
-                <header className="relative z-10 p-6 flex justify-between items-center">
+
+                <header className="relative z-10 pl-6 flex justify-between items-center">
                     <div className="flex items-center space-x-2">
                         <img src="/logo.png" alt="Grabit" className="w-10 h-10" />
                         <span className="text-2xl font-bold text-gray-800">Grabit</span>
                     </div>
-                    <div className="w-32"></div> {/* Spacer for fixed button */}
+                    <div className="w-32"></div>
                 </header>
 
                 {/* Hero Section */}
-                <div className="relative z-10 flex flex-col lg:flex-row min-h-[calc(100vh-100px)] px-6">
+                <div className="z-10 flex flex-col lg:flex-row min-h-screen px-6">
                     <div className="flex-1 flex flex-col justify-center space-y-8 lg:pr-12">
                         <div className="space-y-6">
                             <h1 className="text-5xl lg:text-7xl font-bold text-gray-800 leading-tight">
@@ -65,8 +65,8 @@ const GrabitLanding = () => {
                         </div>
                     </div>
 
-                    {/* Right side with auth form */}
-                    <div className="flex-1 flex items-center justify-center lg:justify-end">
+
+                    <div className="relative flex-1 flex items-center justify-center lg:justify-end">
                         {showAuthForm ? (
                             <Form />
                         ) : (
@@ -93,7 +93,7 @@ const GrabitLanding = () => {
                 </div>
             </div>
 
-            {/* About Section */}
+
             <div className="bg-white py-16 px-6">
                 <div className="max-w-6xl mx-auto">
                     {/* Services Grid */}
@@ -179,7 +179,7 @@ const GrabitLanding = () => {
                 </div>
             </div>
 
-            {/* Mission Statement */}
+
             <div className="bg-gradient-to-r from-yellow-50 to-orange-50 py-16 px-6">
                 <div className="max-w-4xl mx-auto text-center space-y-6">
                     <h3 className="text-3xl font-bold text-gray-800">Our Mission</h3>
@@ -198,7 +198,7 @@ const GrabitLanding = () => {
                     </Button>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
