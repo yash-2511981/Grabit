@@ -59,7 +59,7 @@ const Form = () => {
     }
 
     return (
-        <Card className={`w-full max-w-md ${cn(newRegister && "max-w-lg")} transition-all duration-50`}>
+        <Card className={`w-full max-w-md ${cn(newRegister && "max-w-xl")} transition-all duration-50`}>
             <CardHeader>
                 <CardTitle>{newRegister ? "Register to get start with Grabit" : "Login to your account"}</CardTitle>
                 <CardDescription>{newRegister ? "Fill the details to complete registration process" : "Enter your email and password to login to your account"}</CardDescription>
@@ -76,7 +76,7 @@ const Form = () => {
                         </div>
                         {
                             newRegister && (
-                                <div className='grid-cols-2 grid gap-1'>
+                                <div className='grid-cols-2 grid gap-2'>
                                     <div className='grid gap-2'>
                                         <Label htmlFor='fname'>First Name</Label>
                                         <Input id="fname" name="firstName" type="text" value={formValues.firstName} onChange={handleInputFieldChange} />
@@ -90,9 +90,15 @@ const Form = () => {
                         }
                         {
                             newRegister && (
-                                <div className='grid gap-2'>
-                                    <Label htmlFor='contact'>Contact</Label>
-                                    <Input id="contact" name="contact" type="text" value={formValues.contact} onChange={handleInputFieldChange} />
+                                <div className='grid grid-cols-2 gap-2'>
+                                    <div className='grid  gap-2'>
+                                        <Label htmlFor='contact'>Contact</Label>
+                                        <Input id="contact" name="contact" type="text" value={formValues.contact} onChange={handleInputFieldChange} />
+                                    </div>
+                                    <div className='grid  gap-2'>
+                                        <Label htmlFor='pincode'>Pincode</Label>
+                                        <Input id="pincode" name="pincode" type="number" value={formValues.pincode} onChange={handleInputFieldChange} />
+                                    </div>
                                 </div>
                             )
                         }
