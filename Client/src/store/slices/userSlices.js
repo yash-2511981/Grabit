@@ -10,6 +10,8 @@ const userSlices = (set, get) => ({
     subscriptions: [],
     vegMode: false,
     category: "dish",
+    moveIndex: null,
+    setMoveIndex: (moveIndex) => set({ moveIndex }),
     setCategory: (category) => set({ category }),
     setVegMode: (vegMode) => set({ vegMode }),
     setUserInfo: (userInfo) => set({ userInfo }),
@@ -89,7 +91,22 @@ const userSlices = (set, get) => ({
         const prevOrders = get().pendingOrders
         const newOrders = [...prevOrders, order]
         set({ pendingOrders: newOrders })
-    }
+    },
+    reorderOnLastProductCardClick: (index = null) => {
+        if (index === null) {
+            index = get().moveIndex;
+            if (index === null) return;
+            set({ moveIndex: null })
+        } else {
+            set({ moveIndex: index });
+        }
+
+        const products = [...get().products];
+
+        const [item] = products.splice(index - 1, 1);
+        products.splice(index, 0, item);
+        set({ products })
+    },
 });
 
 export default userSlices;
