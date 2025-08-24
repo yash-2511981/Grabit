@@ -20,7 +20,7 @@ export const register = async (req, res) => {
         return res.status(400).send(error.array()[0].msg)
     }
 
-    const { email, firstName, lastName, contact, password } = req.body
+    const { email, firstName, lastName, contact, password, pincode } = req.body
 
     const isUserPresent = await UserModel.findOne({ email })
     if (isUserPresent)

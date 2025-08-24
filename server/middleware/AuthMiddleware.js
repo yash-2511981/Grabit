@@ -7,7 +7,10 @@ export const registerValidation = [
   body('lastName').notEmpty().withMessage("LastName is required"),
   body('password')
     .isLength({ min: 6 })
-    .withMessage("Password should be at least 6 characters long")
+    .withMessage("Password should be at least 6 characters long"),
+  body('pincode')
+    .isLength({ max: 6 })
+    .withMessage("Please Ener Valid Pincode")
 ];
 
 
