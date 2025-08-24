@@ -28,10 +28,10 @@ const Layout = ({ children }) => {
   const location = useLocation()
   const isAuthPage = location.pathname === "/"
 
-  return <div className="flex flex-col max-h-screen space-y-2">
+  return <div className="flex flex-col space-y-2">
     {!isAuthPage && <Navbar />}
     {children}
-    {!isAuthPage && <Footer />}
+    {isAuthPage && <Footer />}
   </div>
 
 }
@@ -70,7 +70,7 @@ function App() {
 
     getUserInfo()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setUserInfo])
+  }, [])
 
   if (loading) {
     return <Loading />
