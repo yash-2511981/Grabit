@@ -122,3 +122,11 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Add to your global CSS or Tailwind config */
+.product-card {
+  transition: grid-column 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    grid-row 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+  will-change: transform;
+}
