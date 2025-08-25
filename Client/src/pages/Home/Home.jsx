@@ -3,7 +3,7 @@ import CategoryFilterButton from "./CategoryFilter"
 import SwitchModeButton from "./SwitchModeButton"
 import Product from "@/components/Product"
 import { useAppStore } from "@/store/store"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import useApi from "@/hooks/useApi"
 import { GET_DISPLAY_ITEMS } from "@/lib/constants"
 import RestaurantCard from "@/components/Restaurant"
@@ -12,9 +12,10 @@ import EmptyCard from "@/components/EmptyCard"
 const Home = () => {
   const { products, vegMode, category, setProducts, setRestaurants, setSubscriptions, restaurants } = useAppStore()
   const { post } = useApi()
-  const [isEmpty, setIsEmpty] = useState(false);
-  const [openProduct, setOpenProduct] = useState(null);
-
+  const cardRefs = useRef({})
+  const scrollContainerRef = useRef(null)
+  const [isEmpty, setIsEmpty] = useState(false)
+  const [openProduct, setOpenProduct] = useState(null)
 
   useEffect(() => {
     const getDisplayData = async () => {
@@ -36,10 +37,39 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [vegMode, category])
 
+  const handleOpenProduct = (id) => {
+    setOpenProduct(id)
+
+    // Small delay to allow the card to expand first
+    setTimeout(() => {
+      if (id && cardRefs.current[id] && scrollContainerRef.current) {
+        const cardElement = cardRefs.current[id]
+        const scrollContainer = scrollContainerRef.current
+
+        // Get the card's position relative to the scroll container
+        const cardRect = cardElement.getBoundingClientRect()
+        const containerRect = scrollContainer.getBoundingClientRect()
+
+        // Calculate the scroll position needed to center the card
+        const scrollTop = scrollContainer.scrollTop
+        const cardTop = cardRect.top - containerRect.top + scrollTop
+        const containerHeight = containerRect.height
+        const cardHeight = cardRect.height
+
+        // Calculate target scroll position to center the card
+        const targetScrollTop = cardTop - (containerHeight - cardHeight) / 2
+
+        // Smooth scroll to the calculated position
+        scrollContainer.scrollTo({
+          top: Math.max(0, targetScrollTop), // Ensure we don't scroll above 0
+          behavior: "smooth"
+        })
+      }
+    }, 100) // Small delay to allow card expansion animation
+  }
+
   return (
     <div className='w-full max-w-7xl mx-auto h-[calc(100vh-80px)] p-4 flex flex-col'>
-
-
       <div className='h-auto w-full px-4 grid grid-cols-[1fr_auto] max-sm:grid-cols-1 gap-2 items-center flex-shrink-0 border-b max-sm:border-none bg-white/80 backdrop-blur-sm p-2'>
         <div className="gap-2 w-auto flex p-2 overflow-x-auto">
           {filtersArray.map((filter, index) => {
@@ -52,18 +82,22 @@ const Home = () => {
       </div>
 
       <div className="flex-1 min-h-0 overflow-hidden">
-        <div className="h-full overflow-y-auto hide-scrollbar">
-          <div className="p-4 pb-">
+        <div
+          ref={scrollContainerRef}
+          className="h-full overflow-y-auto hide-scrollbar"
+        >
+          <div className="p-4 pb-8">
             {isEmpty && <EmptyCard text="Opps! There is no restaurant near you" />}
             {category === "dish" &&
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 ">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {products.map((product, index) => (
                   <Product
                     key={product._id || index}
                     product={product}
                     open={openProduct === product._id}
-                    setOpen={setOpenProduct}
+                    setOpen={handleOpenProduct}
                     index={index}
+                    ref={cardRefs}
                   />
                 ))}
               </div>}
