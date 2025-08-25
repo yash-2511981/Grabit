@@ -92,6 +92,15 @@ const userSlices = (set, get) => ({
         const newOrders = [...prevOrders, order]
         set({ pendingOrders: newOrders })
     },
+    removePendingOrder: (id) => {
+        const pendingOrders = [...get().pendingOrders]
+        const index = pendingOrders.findIndex(p => p._id === id)
+
+        if (index !== -1)
+            pendingOrders.splice(index, 1)
+
+        set({ pendingOrders })
+    },
     reorderOnLastProductCardClick: (index = null) => {
         if (index === null) {
             index = get().moveIndex;

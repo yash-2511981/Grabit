@@ -6,7 +6,7 @@ const orderSchema = new Schema({
         ref: "user",
         required: true,
     },
-    deliveryBoy: { type: Schema.Types.ObjectId },
+    deliveryBoy: { type: Schema.Types.ObjectId }, //TODO:need to add reference module
     products: [
         {
             product: { type: Schema.Types.ObjectId, ref: "product", required: true },
@@ -20,7 +20,7 @@ const orderSchema = new Schema({
     },
     orderStatus: {
         type: String,
-        enum: ["confirm", "packed", "picked", "on the way", "delivered", "pending", "cancled"],
+        enum: ["confirm", "packed", "picked", "on the way", "delivered", "pending", "cancelled"],
         default: "pending",
     },
     paymentStatus: {
@@ -36,7 +36,8 @@ const orderSchema = new Schema({
     deliveryCharge: { type: Number, default: 40 },
     gst: { type: Number, required: true },
     platFormFee: { type: Number, required: true },
-    createdFromSubscriptions: { type: Boolean, default: false }
+    createdFromSubscriptions: { type: Boolean, default: false },
+    isRated: { type: Boolean }
 }, { timestamps: true });
 
 export const OrderModel = mongoose.model("order", orderSchema);

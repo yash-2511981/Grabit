@@ -4,7 +4,7 @@ import { addressValidations, loginValidation, registerValidation } from "../../m
 import { jwtVerify } from "../../lib/utils.js";
 import { addAddress, changePassword, getDisplayItems, getUserInfo, updatePersonalInfo } from "../../controller/UserController/UserController.js";
 import { addToCart, deleteCartItem, getCartItems, updateCartItems } from "../../controller/UserController/CartController.js";
-import { createOrder, getOrderDetails } from "../../controller/UserController/OrderController.js";
+import { cancelOrder, createOrder, getOrderDetails } from "../../controller/UserController/OrderController.js";
 import { updateOrderStatus } from "../../controller/controller.js";
 
 const userRouter = Router();
@@ -32,6 +32,6 @@ userRouter.patch("/update-cart", jwtVerify, updateCartItems);
 //order related routes
 userRouter.get("/get-orders", jwtVerify, getOrderDetails)
 userRouter.post("/create-order", jwtVerify, createOrder)
-userRouter.post("/update-order", jwtVerify, updateOrderStatus)
+userRouter.post("/cancel-order", jwtVerify, cancelOrder)
 
 export default userRouter

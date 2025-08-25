@@ -50,11 +50,29 @@ export const getOrderDetails = async (req, res) => {
             model: "product",
         },).sort({ createdAt: -1 })
 
-        const pendingOrders = orders.filter((order) => (order.orderStatus !== "delivered" || order.orderStatus !== "cancled"))
-        const completedOrders = orders.filter((order) => (order.orderStatus === "delivered" || order.orderStatus === "cancled"))
+        const pendingOrders = orders.filter((order) => (order.orderStatus !== "delivered" && order.orderStatus !== "cancelled"))
+        const completedOrders = orders.filter((order) => (order.orderStatus === "delivered" || order.orderStatus === "cancelled"))
         res.status(200).json({ pendingOrders, completedOrders })
     } catch (error) {
         console.log(error)
         res.status(500).send("Server error.Try again later")
     }
-}   
+}
+
+export const cancelOrder = async (req, res) => {
+    const { id } = req.data;
+    const { orderId } = req.body
+    if (!orderId) return res.status(401).send("Order Id is required")
+
+    try {
+        const order = await OrderModel.findOneAndUpdate({ _id: orderId, user: id }, { $set: { orderStatus: "cancelled" } })
+
+        if (!order) return res.status(404).send("Order not found or not authorized to update")
+
+        res.status(200).json("Order Cancelled")
+    } catch (error) {
+        console.log(error)
+        res.status(200).send("Server error.Try again later.")
+    }
+}
+
