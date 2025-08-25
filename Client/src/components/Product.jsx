@@ -7,13 +7,13 @@ import { useAppStore } from '@/store/store'
 import useColumns from '@/hooks/useColumns'
 import { useNavigate } from "react-router-dom"
 
-const Product = ({ product, open, setOpen, index }) => {
+const Product = ({ product, open, setOpen, index, ref }) => {
     const { post } = useApi()
     const navigate = useNavigate()
     const { addCartItem, productIsInCart, reorderOnLastProductCardClick, moveIndex, setCheckoutData } = useAppStore()
 
     const columns = useColumns()
-    const isLastInRow = columns - 1 === index;
+    const isLastInRow = ((index + 1) % columns) === 0;
 
     const handleAddToCart = async (e) => {
         e.stopPropagation()
@@ -23,7 +23,7 @@ const Product = ({ product, open, setOpen, index }) => {
         }
     }
 
-    const handlOrderNow = () => {
+    const handleOrderNow = () => {
         setCheckoutData([{ ...product, quantity: 1 }], product.price, false)
         setOpen(null)
         navigate("/checkout")
@@ -32,9 +32,20 @@ const Product = ({ product, open, setOpen, index }) => {
     const isInCart = productIsInCart(product._id)
 
     const handleProductClick = () => {
+        if (open) return // Prevent clicking when already open
+
         setOpen(product._id)
         if (isLastInRow) {
             reorderOnLastProductCardClick(index)
+        }
+    }
+
+    const handleCloseProduct = (e) => {
+        e.stopPropagation()
+        setOpen(null)
+        if (moveIndex !== null) {
+            console.log("calling reorder")
+            reorderOnLastProductCardClick()
         }
     }
 
@@ -43,12 +54,20 @@ const Product = ({ product, open, setOpen, index }) => {
             className={cn(
                 "product-card bg-white rounded-xl shadow-sm hover:shadow-md hover:border-orange-200 cursor-pointer group touch-manipulation active:shadow-lg transition-all duration-500 overflow-hidden border border-gray-100 col-span-1 row-span-1",
                 {
-                    "shadow-xl border-amber-200 cursor-default col-span-2 row-span-2": open,
+                    "shadow-xl border-amber-200 cursor-default col-span-2 row-span-2 z-10": open,
                     "hover:shadow-lg": !open,
                 }
             )}
+            ref={(el) => {
+                if (ref && ref.current) {
+                    ref.current[product._id] = el
+                }
+            }}
         >
-            <div className={cn("relative aspect-[4/3] overflow-hidden", { "h-1/2 w-full aspect-[4/2]": open })} onClick={handleProductClick}>
+            <div
+                className={cn("relative aspect-[4/3] overflow-hidden", { "h-1/2 w-full aspect-[4/2]": open })}
+                onClick={handleProductClick}
+            >
                 <img
                     src={product?.imageUrl}
                     alt={product.name}
@@ -116,7 +135,8 @@ const Product = ({ product, open, setOpen, index }) => {
                             <div className='flex gap-2 bg-gray-50 rounded-lg p-3'>
                                 <img
                                     src={product.restaurant.imageUrl}
-                                    className='h-20 w-20 rounded-2xl'
+                                    alt={product.restaurant.name}
+                                    className='h-20 w-20 rounded-2xl object-cover'
                                 />
                                 <div className='flex flex-col w-full justify-between items-start pl-3'>
                                     <div className='flex items-center justify-between w-full'>
@@ -142,21 +162,14 @@ const Product = ({ product, open, setOpen, index }) => {
                             <Button
                                 className='cursor-pointer font-semibold shadow-md hover:shadow-lg transition-all'
                                 variant="primary"
-                                onClick={handlOrderNow}
+                                onClick={handleOrderNow}
                             >
                                 Order Now • ₹{product.price}
                             </Button>
                             <Button
                                 className='cursor-pointer'
                                 variant="outline"
-                                onClick={(e) => {
-                                    e.stopPropagation()
-                                    setOpen(null)
-                                    if (moveIndex !== null) {
-                                        console.log("calling")
-                                        reorderOnLastProductCardClick()
-                                    }
-                                }}
+                                onClick={handleCloseProduct}
                             >
                                 Close
                             </Button>
