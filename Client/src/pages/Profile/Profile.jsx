@@ -66,7 +66,7 @@ const Profile = () => {
                         <MapPin className="h-5 w-5" />
                         <h2 className="text-lg font-semibold">Addresses</h2>
                     </div>
-                    <Button size="sm" className="gap-2" onClick={() => setShowModal("addaddress")}>
+                    <Button size="sm" variant="primary" className="gap-2" onClick={() => setShowModal("addaddress")}>
                         <PlusIcon className="h-4 w-4" />
                         Add Address
                     </Button>
