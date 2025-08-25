@@ -36,7 +36,7 @@ const Orders = () => {
 
             <div className={`flex-1 grid gap-6 min-h-0 ${pendingOrders.length > 0 ? 'grid-cols-1 lg:grid-cols-4 md:grid-cols-3' : 'grid-cols-1'}`}>
 
-                <section className={cn("lg:col-span-1 bg-white rounded-lg shadow-lg flex flex-col overflow-hidden", { "max-lg:hidden": showOrderHistory, "lg:hidden": pendingOrders.length === 0 })}>
+                <section className={cn("lg:col-span-1 bg-white rounded-lg shadow-lg flex flex-col overflow-hidden", { "max-md:hidden": showOrderHistory, "lg:hidden": pendingOrders.length === 0 })}>
 
                     <div className="flex-shrink-0 flex items-center justify-between bg-yellow-100 p-4">
                         <div className="flex items-center gap-2">
@@ -81,8 +81,8 @@ const Orders = () => {
                     )}
                 </section>
 
-
-                <section className={cn(`${pendingOrders.length > 0 ? 'lg:col-span-3 md:col-span-2' : 'col-span-4'} bg-white rounded-lg shadow-lg flex flex-col overflow-hidden`, { "max-md:hidden": !showOrderHistory })}>
+                {/* Completed orders details */}
+                <section className={cn(`${pendingOrders.length > 0 ? 'lg:col-span-3 md:col-span-2 sm:col-span-1' : 'col-span-4'} bg-white rounded-lg shadow-lg flex flex-col overflow-hidden`, { "max-md:hidden": !showOrderHistory })}>
 
                     <div className="flex-shrink-0 flex items-center justify-between bg-yellow-100 p-4">
                         <div className="flex items-center gap-2">
@@ -105,7 +105,7 @@ const Orders = () => {
                             </div>
                         </div>
                     ) : (
-                        <div className="flex-1 flex flex-col items-center justify-center p-4 space-y-3">
+                        <div className="h-screen flex flex-col items-center justify-center p-4 space-y-3">
                             <div className="h-20 w-20 sm:h-24 sm:w-24 lg:h-32 lg:w-32 bg-yellow-100 flex items-center justify-center rounded-full">
                                 <BoxIcon className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-amber-500" />
                             </div>
