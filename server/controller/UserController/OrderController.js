@@ -47,8 +47,8 @@ export const getOrderDetails = async (req, res) => {
     try {
         const orders = await OrderModel.find({ user: id }).populate({
             path: "products.product",
-            module: "product"
-        })
+            model: "product",
+        },).sort({ createdAt: -1 })
 
         const pendingOrders = orders.filter((order) => (order.orderStatus !== "delivered" || order.orderStatus !== "cancled"))
         const completedOrders = orders.filter((order) => (order.orderStatus === "delivered" || order.orderStatus === "cancled"))
