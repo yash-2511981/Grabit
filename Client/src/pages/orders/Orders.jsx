@@ -1,13 +1,13 @@
 import CartSheet from "@/components/CartSheet";
-import PendingOrder from "./PendingOrder";
+import PendingOrder from "./Components/PendingOrder";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/store/store";
 import { BoxIcon, Clock4, PackageCheck } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CompletedOrder from "./CompletedOrder";
-import OrderModal from "./OrderModal";
+import CompletedOrder from "./Components/CompletedOrder";
+import OrderModal from "./Components/OrderModal";
 
 const Orders = () => {
     const { cartItems, completedOrders, pendingOrders } = useAppStore()
