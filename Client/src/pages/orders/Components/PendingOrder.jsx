@@ -1,6 +1,5 @@
 import React from 'react';
-import { Clock, Package, User, DollarSign, CreditCard, IndianRupeeIcon, IndianRupee, Eye, X, Calendar } from 'lucide-react';
-import { Button } from '../../components/ui/button';
+import { Clock, Package, CreditCard } from 'lucide-react';
 const PendingOrder = ({ order, showOrder, setOrder }) => {
 
     // Helper function to get order status color (matching Grabit theme)

@@ -92,8 +92,8 @@ const CartSheet = ({ text }) => {
                 <SheetFooter >
                     <SheetClose>
                         <div className="border-b-2 py-2">
-                            {cartItems.length > 0 && <Button className="w-full" onClick={handleCheckOut} >Proceed To Checkout  &nbsp; {total}</Button>}
-                            {cartItems.length === 0 && <Button className="w-full" onClick={() => navigate("/home")} >Add Products</Button>}
+                            {cartItems.length > 0 && <Button variant="primary" className="w-full" onClick={handleCheckOut} >Proceed To Checkout  • ₹{total}</Button>}
+                            {cartItems.length === 0 && <Button variant="primary" className="w-full" onClick={() => navigate("/home")} >Add Products</Button>}
                         </div>
                     </SheetClose>
                     {cartItems.length > 0 ?

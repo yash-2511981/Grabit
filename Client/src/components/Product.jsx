@@ -1,35 +1,18 @@
 import { cn } from '@/lib/utils'
-import { CheckSquare, Home, ShoppingBagIcon, Star, ArrowRight } from 'lucide-react'
+import { CheckSquare, ShoppingBagIcon, Star, ArrowRight } from 'lucide-react'
 import { Button } from './ui/button'
-import useApi from '@/hooks/useApi'
-import { ADD_TO_CART } from '@/lib/constants'
 import { useAppStore } from '@/store/store'
 import useColumns from '@/hooks/useColumns'
-import { useNavigate } from "react-router-dom"
+import OrderNowBtn from '@/pages/Home/compoenents/OrderNowBtn'
+import AddToCartBtn from '@/pages/Home/compoenents/AddToCartBtn'
 
 const Product = ({ product, open, setOpen, index, ref }) => {
-    const { post } = useApi()
-    const navigate = useNavigate()
-    const { addCartItem, productIsInCart, reorderOnLastProductCardClick, moveIndex, setCheckoutData } = useAppStore()
+
+    const { reorderOnLastProductCardClick, moveIndex, setShowMenu, setShowMenuRestaurant } = useAppStore()
 
     const columns = useColumns()
     const isLastInRow = ((index + 1) % columns) === 0;
 
-    const handleAddToCart = async (e) => {
-        e.stopPropagation()
-        const result = await post(ADD_TO_CART, { productId: product._id }, "Item Added in cart")
-        if (result.success) {
-            addCartItem(result.data)
-        }
-    }
-
-    const handleOrderNow = () => {
-        setCheckoutData([{ ...product, quantity: 1 }], product.price, false)
-        setOpen(null)
-        navigate("/checkout")
-    }
-
-    const isInCart = productIsInCart(product._id)
 
     const handleProductClick = () => {
         if (open) return // Prevent clicking when already open
@@ -44,9 +27,13 @@ const Product = ({ product, open, setOpen, index, ref }) => {
         e.stopPropagation()
         setOpen(null)
         if (moveIndex !== null) {
-            console.log("calling reorder")
             reorderOnLastProductCardClick()
         }
+    }
+
+    const handleMenuViewClick = () => {
+        setShowMenu(true)
+        setShowMenuRestaurant(product.restaurant)
     }
 
     return (
@@ -89,15 +76,7 @@ const Product = ({ product, open, setOpen, index, ref }) => {
                 </div>
 
                 <div className="absolute bottom-3 right-3 transition-opacity duration-200">
-                    {isInCart ?
-                        <Button variant="primary" className="rounded-full shadow-lg" title="In cart">
-                            <CheckSquare size={20} />
-                        </Button>
-                        :
-                        <Button variant="primary" className="rounded-full shadow-lg" title="Add to cart" onClick={handleAddToCart}>
-                            <ShoppingBagIcon size={20} />
-                        </Button>
-                    }
+                    <AddToCartBtn product={product} variant="primary" classNames="rounded-full" />
                 </div>
 
                 <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full shadow-lg">
@@ -152,20 +131,14 @@ const Product = ({ product, open, setOpen, index, ref }) => {
                                         <span className="text-sm">{product.restaurant.avgDeliveryTime} Min Delivery</span>
                                     </div>
                                     <div className='flex items-center gap-2 text-gray-600'>
-                                        <Button variant="Link" className="text-sm p-0 cursor-pointer">View Menu</Button>
+                                        <Button variant="Link" className="text-sm p-0 cursor-pointer" onClick={handleMenuViewClick}>View Menu</Button>
                                         <ArrowRight size={15} />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className='grid grid-cols-2 gap-3 pb-4'>
-                            <Button
-                                className='cursor-pointer font-semibold shadow-md hover:shadow-lg transition-all'
-                                variant="primary"
-                                onClick={handleOrderNow}
-                            >
-                                Order Now • ₹{product.price}
-                            </Button>
+                            <OrderNowBtn product={product} />
                             <Button
                                 className='cursor-pointer'
                                 variant="outline"

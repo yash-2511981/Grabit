@@ -34,7 +34,7 @@ const RestaurantCard = ({ restaurant }) => (
                 <div className="flex items-center justify-between">
                     <div className="flex items-center text-amber-600 text-sm">
                         <Clock className="w-4 h-4 mr-1" />
-                        <span>{restaurant.deliveryTime}</span>
+                        <span>{restaurant.avgDeliveryTime} Min Delivery</span>
                     </div>
                     <button className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200">
                         View Menu

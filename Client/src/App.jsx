@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import Loading from "./components/ui/loading"
 import Auth from "./pages/Auth/Auth"
 import { useAppStore } from "./store/store"
@@ -14,6 +14,7 @@ import Checkout from "./pages/checkout/Chekout"
 
 const AuhtRoutes = ({ children }) => {
   const { userInfo } = useAppStore();
+
   const isAuthenticated = !!userInfo;
   return isAuthenticated ? <Navigate to="/home" /> : children
 }
@@ -38,7 +39,8 @@ const Layout = ({ children }) => {
 
 function App() {
 
-  const { loading, setUserInfo, setLoading, setCartItems, setAddresses, setOrdersDetails } = useAppStore()
+  const { setUserInfo, setCartItems, setAddresses, setOrdersDetails } = useAppStore()
+  const [loading, setLoading] = useState();
   const { get } = useApi()
 
 
