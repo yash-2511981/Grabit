@@ -11,6 +11,11 @@ const userSlices = (set, get) => ({
     vegMode: false,
     category: "dish",
     moveIndex: null,
+    menuItems: [],
+    showMenu: false,
+    showMenuRestaurant: {},
+    setShowMenu: (showMenu) => set({ showMenu }),
+    setShowMenuRestaurant: (showMenuRestaurant) => set({ showMenuRestaurant }),
     setMoveIndex: (moveIndex) => set({ moveIndex }),
     setCategory: (category) => set({ category }),
     setVegMode: (vegMode) => set({ vegMode }),
@@ -25,16 +30,8 @@ const userSlices = (set, get) => ({
         addresses: [...state.addresses, address]
     })),
     addCartItem: (item) => {
-        const prevCart = get().cartItems
-        const index = prevCart.findIndex(prodcut => prodcut._id === item._id)
-
-        if (index !== -1) {
-            const updatedCart = [...prevCart]
-            updatedCart[index] = { ...updatedCart[index], quantity: item.quantity }
-            set({ cartItems: updatedCart })
-        } else {
-            set({ cartItems: [...prevCart, item] })
-        }
+        const prevCart = [...get().cartItems]
+        set({ cartItems: [...prevCart, item] })
     },
     increaseCartItemQuantity: (id) => {
         const cartItems = get().cartItems;
