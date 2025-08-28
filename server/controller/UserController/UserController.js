@@ -158,7 +158,7 @@ export const getDisplayItems = async (req, res) => {
             case "dish":
                 const restaurantIds = restaurants.map(r => r._id)
 
-                data = await ProductModel.find({ restaurant: { $in: restaurantIds } }).populate('restaurant', "name avgDeliveryTime rating imageUrl").lean();
+                data = await ProductModel.find({ restaurant: { $in: restaurantIds } }).populate('restaurant', "name avgDeliveryTime rating imageUrl address").lean();
                 break;
 
             case "restaurants":
@@ -171,7 +171,9 @@ export const getDisplayItems = async (req, res) => {
                     phone: restaurant.phone,
                     pincode: restaurant.pincode,
                     imageUrl: restaurant.imageUrl,
-                    status: restaurant.status
+                    status: restaurant.status,
+                    rating: restaurant.rating,
+                    avgDeliveryTime: restaurant.avgDeliveryTime
                 }));
                 break;
 
