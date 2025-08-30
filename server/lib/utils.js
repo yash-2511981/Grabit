@@ -16,7 +16,7 @@ export const jwtVerify = async (req, res, next) => {
     const token = req.cookies.jwt;
 
     if (!token)
-        return res.status(401).send("Log in to your account to use it");
+        return res.status(401).send("Sign In or Sign Up to proceed");
 
     const isTokenExpired = await BlackListTokenModel.findOne({ token })
 

@@ -31,7 +31,7 @@ export const getUserInfo = async (req, res) => {
             user: {
                 ...userDet
             },
-            address,
+            address: { ...address },
         })
     } catch (error) {
         console.log(error)

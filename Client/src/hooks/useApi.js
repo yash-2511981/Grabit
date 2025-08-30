@@ -36,14 +36,14 @@ const useApi = () => {
             }
         } catch (error) {
             console.log("API Error:", error)
-            let errorMessage = "Something went wrong.Try again later";
+            let errorMessage;
             if (error.response) {
-                errorMessage = error.response.data || `Server error:${error.response.status}`
-            } else {
-                errorMessage = "Server Error.Try again after some time"
+                errorMessage = error.response.data
             }
 
-            toast.error(errorMessage)
+            if (errorMessage) {
+                toast.error(errorMessage)
+            }
 
             return {
                 success: false
