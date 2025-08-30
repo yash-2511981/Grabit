@@ -1,3 +1,6 @@
 [submodule "Client"]
 	path = Client
 	url = https://github.com/yash-2511981/grabit-client-user.git
+[submodule "server"]
+	path = server
+	url = https://github.com/yash-2511981/grabit-server.git
