@@ -39,6 +39,7 @@
 - **Backend**: Express.js, JWT Authentication
 - **Database**: MongoDB (Mongoose ODM)
 - **Payments**: Razorpay Integration
+- **Cloud Storage**: Cloudinary
 
 ---
 
@@ -62,7 +63,12 @@
 - ✅ Vendor Registration/Login/Logout
 - ✅ Sidebar with MobileNav
 - ✅ Completed CRUD on product Module
-- ✅ Working on Dashboard
+- ✅ Dashboard UI completed
+- ✅ Complted Profile setup.
+  - Add/Update Profile details.
+  - Add/Update Bank Details.
+  - Add/Update Personal docs and secure access using **cloudinary**.
+  - Manage Notifications and settings.
 
 ---
 
