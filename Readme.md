@@ -61,6 +61,7 @@ A single Monolithic Express.js API handles all business logic, ensuring a consis
 This diagram illustrates the segregated flow of the three-sided application, highlighting real-time communication via the Socket Server and secure third-party integrations (Razorpay, Cloudinary).
 
 ![System Architecture Diagram for Grabit](./System-architecture.png)
+
 ---
 
 ## 🛠️ Tech Stack
