@@ -94,6 +94,7 @@ This diagram illustrates the segregated flow of the three-sided application, hig
 - ✅ Vendor Registration/Login/Logout
 - ✅ Sidebar with MobileNav
 - ✅ Completed CRUD on product Module
+- ✅ Completed CRUD on subscription Module
 - ✅ Dashboard UI completed
 - ✅ Complted Profile setup.
   - Add/Update Profile details.
