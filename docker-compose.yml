@@ -28,7 +28,6 @@ services:
 volumes:
   mongo-data:
     external: true
-    name: mongo-data # Connect to your existing volume with all the data
+    name: mongo-data # Connect to existing volume with all the data
   mongo-config:
-    # No external flag - Docker will create this as a new volume
   redisinsight_data:
