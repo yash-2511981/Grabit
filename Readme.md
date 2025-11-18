@@ -85,7 +85,11 @@ This diagram illustrates the segregated flow of the three-sided application, hig
 - ✅ Profile Management (update personal details & address)
 - ✅ Cart Component with quantity updates
 - ✅ Checkout Page with billing/address review
-- ⏳ Razorpay Payment Gateway (on hold)
+- ✅ Real-World Order Workflow with Razorpay Integration
+  - Integrated Razorpay Payment Gateway with secure signature verification
+  - Implemented asynchronous payment verification and order creation using BullMQ queues
+  - Handled retry and failure cases automatically for reliable payment processing
+  - Added refund logic for anonymous/unlinked payments, creating refund records when payment succeeds but the order fails to create (for application-level tracking, not vendor refunds
 
 ---
 
@@ -101,6 +105,7 @@ This diagram illustrates the segregated flow of the three-sided application, hig
   - Add/Update Bank Details.
   - Add/Update Personal docs and secure access using **cloudinary**.
   - Manage Notifications and settings.
+- ⏳ Currently working on Vendor Refund Flow for handling user-initiated order cancellations and refund processing
 
 ---
 
