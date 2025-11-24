@@ -7,3 +7,6 @@
 [submodule "vendor"]
 	path = vendor
 	url = https://github.com/yash-2511981/grabit-client-vendor.git
+[submodule "admin"]
+	path = admin
+	url = https://github.com/yash-2511981/admin.git
