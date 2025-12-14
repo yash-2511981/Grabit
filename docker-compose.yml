@@ -28,6 +28,6 @@ services:
 volumes:
   mongo-data:
     external: true
-    name: mongo-data # Connect to existing volume with all the data
+    name: mongo-data 
   mongo-config:
   redisinsight_data:
