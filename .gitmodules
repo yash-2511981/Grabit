@@ -1,9 +1,9 @@
 [submodule "Client"]
-	path = Client
+	path = Client # its already completed do not delete even your high
 	url = https://github.com/yash-2511981/grabit-client-user.git
-[submodule "server"]
+[submodule "server"] # do not delete at any cost
 	path = server
 	url = https://github.com/yash-2511981/grabit-server.git
 [submodule "admin"]
-	path = admin
+	path = admin # delete this mf
 	url = https://github.com/yash-2511981/admin.git
