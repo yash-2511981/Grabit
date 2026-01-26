@@ -1,0 +1,12 @@
+[submodule "Client"]
+	path = Client
+	url = https://github.com/yash-2511981/grabit-client-user.git
+	branch = main
+[submodule "server"]
+	path = server
+	url = https://github.com/yash-2511981/grabit-server.git
+	branch = main
+[submodule "vendor"]
+	path = vendor
+	url = https://github.com/yash-2511981/grabit-client-vendor.git
+	branch = main
